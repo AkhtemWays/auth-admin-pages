@@ -1,14 +1,20 @@
-import { FETCH_DATA, AUTHORIZE, DELETE } from "./types";
+import {
+  FETCH_DATA,
+  AUTHORIZE,
+  DELETE_USER,
+  ADD_USER,
+  ADD_USER_MODE,
+  FROM_ADDITION_TO_ADMIN,
+} from "./types";
 
 export function fetchData() {
   return async (dispatch) => {
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
     const data = await response.json();
-    console.log(data);
     const normalizedData = [];
     const superUser = {
       username: "AkhtemWays",
-      password: "12345abcde",
+      password: "123",
       id: 0,
       name: "Akhtem Ways",
       email: "ahty.study@bk.ru",
@@ -20,6 +26,7 @@ export function fetchData() {
         street: "Kaluzhskaya street",
       },
     };
+    console.log(superUser);
     normalizedData.push(superUser);
     for (let user of data) {
       const normalizedUser = {
@@ -53,7 +60,25 @@ export function authorize() {
 
 export function deleteUser(id) {
   return {
-    type: DELETE,
+    type: DELETE_USER,
     payload: id,
+  };
+}
+
+export function addUser() {
+  return {
+    type: ADD_USER,
+  };
+}
+
+export function addUserMode() {
+  return {
+    type: ADD_USER_MODE,
+  };
+}
+
+export function fromAdditionToAdmin() {
+  return {
+    type: FROM_ADDITION_TO_ADMIN,
   };
 }

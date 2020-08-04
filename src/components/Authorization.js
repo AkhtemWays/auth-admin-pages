@@ -18,10 +18,12 @@ class Authorization extends Component {
           <br />
           <Field
             component="input"
+            type="text"
             minLength={2}
             maxLength={25}
             name="username"
             value={this.props.username}
+            placeholder="Username"
           />
         </div>
         <div>
@@ -29,9 +31,11 @@ class Authorization extends Component {
           <br />
           <Field
             component="input"
+            type="password"
             minLength={6}
             name="password"
             value={this.props.password}
+            placeholder="Password"
           />
         </div>
         <button onClick={this.handleSubmit} className="bg-primary">
