@@ -174,7 +174,7 @@ class UserAddition extends Component {
             Добавить
           </button>
           <button onClick={this.handleAdminBack} className="bg-secondary">
-            <Link to="/admin/">Назад на страницу админа</Link>
+            <Link to="/admin/">Назад</Link>
           </button>
         </div>
       </div>

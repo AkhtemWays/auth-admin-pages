@@ -181,7 +181,7 @@ class UserEditing extends Component {
             Закончить
           </button>
           <button onClick={this.handleAdminBack} className="bg-secondary">
-            <Link to="/admin/">Назад на страницу админа</Link>
+            Назад
           </button>
         </div>
       </div>

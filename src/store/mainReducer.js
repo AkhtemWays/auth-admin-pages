@@ -8,6 +8,8 @@ import {
   SET_EDIT_MODE,
   FROM_EDITING_TO_ADMIN,
   UPDATE_USER,
+  SET_DETAIL,
+  FROM_DETAIL_TO_ADMIN,
 } from "./types";
 
 const initialData = {
@@ -40,6 +42,21 @@ const initialData = {
   editModePassword: "",
   editModeUserName: "",
   editModeUserStatus: "",
+  userDetailMode: false,
+  detailedUser: {
+    username: "",
+    password: "",
+    id: "",
+    name: "",
+    email: "",
+    phone: "",
+    status: "",
+    address: {
+      city: "",
+      zipcode: "",
+      street: "",
+    },
+  },
 };
 
 export default function (state = initialData, action) {
@@ -368,6 +385,38 @@ export default function (state = initialData, action) {
         editModePassword: "",
         editModeUserName: "",
         editModeUserStatus: "",
+      };
+    case SET_DETAIL:
+      const chosenUser = state.users.find((user) => user.id == action.payload);
+      return {
+        ...state,
+        userAdditionMode: false,
+        isAuthorized: true,
+        userEditMode: false,
+        userDetailMode: true,
+        detailedUser: chosenUser,
+      };
+    case FROM_DETAIL_TO_ADMIN:
+      return {
+        ...state,
+        userAdditionMode: false,
+        isAuthorized: true,
+        userEditMode: false,
+        userDetailMode: false,
+        detailedUser: {
+          username: "",
+          password: "",
+          id: "",
+          name: "",
+          email: "",
+          phone: "",
+          status: "",
+          address: {
+            city: "",
+            zipcode: "",
+            street: "",
+          },
+        },
       };
 
     default:

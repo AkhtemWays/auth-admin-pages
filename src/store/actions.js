@@ -8,7 +8,22 @@ import {
   SET_EDIT_MODE,
   FROM_EDITING_TO_ADMIN,
   UPDATE_USER,
+  SET_DETAIL,
+  FROM_DETAIL_TO_ADMIN,
 } from "./types";
+
+export function fromDetailToAdmin() {
+  return {
+    type: FROM_DETAIL_TO_ADMIN,
+  };
+}
+
+export function setDetail(id) {
+  return {
+    type: SET_DETAIL,
+    payload: id,
+  };
+}
 
 export function setEditMode(id) {
   return {

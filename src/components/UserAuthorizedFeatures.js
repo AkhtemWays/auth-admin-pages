@@ -4,6 +4,7 @@ import UserAddition from "./UserAddition";
 import EditUser from "./EditUser";
 import Admin from "./Admin";
 import { Redirect, Route } from "react-router-dom";
+import Detail from "./Detail";
 
 class UserAuthorizedFeatures extends Component {
   render() {
@@ -11,7 +12,7 @@ class UserAuthorizedFeatures extends Component {
       <>
         <Route component={Admin} path="/admin/" strict exact={true} />
         <Route
-          path="/admin/edit/:userId?/"
+          path="/admin/edit/:userId/"
           strict
           exact={true}
           component={EditUser}
@@ -22,14 +23,24 @@ class UserAuthorizedFeatures extends Component {
           strict={true}
           exact={true}
         />
+        <Route
+          component={Detail}
+          path="/admin/detail/:userId/"
+          strict
+          exact={true}
+        />
         {this.props.isAuthorized &&
           !this.props.userAdditionMode &&
-          !this.props.userEditMode && <Redirect to="/admin/" />}
+          !this.props.userEditMode &&
+          !this.props.userDetailMode && <Redirect to="/admin/" />}
         {this.props.isAuthorized && this.props.userAdditionMode && (
-          <Redirect to="/admin/add/" />
+          <Redirect to="/admin/add/" strict exact />
         )}
         {this.props.userEditMode && this.props.isAuthorized && (
-          <Redirect to="/admin/edit/:userId/" />
+          <Redirect to="/admin/edit/:userId/" strict exact />
+        )}
+        {this.props.userDetailMode && this.props.isAuthorized && (
+          <Redirect to="/admin/detail/:userId/" strict exact />
         )}
       </>
     );
@@ -39,6 +50,7 @@ const mapStateToProps = (state) => ({
   isAuthorized: state.main.isAuthorized,
   userAdditionMode: state.main.userAdditionMode,
   userEditMode: state.main.userEditMode,
+  userDetailMode: state.main.userDetailMode,
 });
 
 export default connect(mapStateToProps, null)(UserAuthorizedFeatures);
