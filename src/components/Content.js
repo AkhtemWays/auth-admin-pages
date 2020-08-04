@@ -19,13 +19,10 @@ class Content extends Component {
     return (
       <Router>
         <Route path="/" exact={true} render={() => <Redirect to="/login/" />} />
-        <Route
-          component={Authorization}
-          exact={true}
-          strict={true}
-          path="/login/"
-        />
-        {this.props.isAuthorized && <Redirect to="/admin/" />}
+        <Route component={Authorization} exact={true} strict path="/login/" />
+        {this.props.isAuthorized && (
+          <Redirect to="/admin/" strict exact={true} />
+        )}
         <Route component={Admin} path="/admin/" strict exact={true} />
       </Router>
     );

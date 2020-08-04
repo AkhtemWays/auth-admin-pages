@@ -34,7 +34,9 @@ class Authorization extends Component {
             value={this.props.password}
           />
         </div>
-        <button onClick={this.handleSubmit}>Войти</button>
+        <button onClick={this.handleSubmit} className="bg-primary">
+          Войти
+        </button>
       </div>
     );
   }
