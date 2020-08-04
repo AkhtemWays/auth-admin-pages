@@ -1,4 +1,4 @@
-import { FETCH_DATA, AUTHORIZE } from "./types";
+import { FETCH_DATA, AUTHORIZE, DELETE } from "./types";
 
 const initialData = {
   users: [],
@@ -64,6 +64,24 @@ export default function (state = initialData, action) {
         currentUsername: "",
         currentPassword: "",
       };
+
+    case DELETE:
+      if (action.payload == 0) {
+        alert("Это действие невозможно!");
+        return {
+          ...state,
+        };
+      }
+      if (window.confirm("Вы уверены?")) {
+        return {
+          ...state,
+          users: state.users.filter((user) => user.id !== action.payload),
+        };
+      }
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

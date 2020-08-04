@@ -1,4 +1,4 @@
-import { FETCH_DATA, AUTHORIZE } from "./types";
+import { FETCH_DATA, AUTHORIZE, DELETE } from "./types";
 
 export function fetchData() {
   return async (dispatch) => {
@@ -48,5 +48,12 @@ export function fetchData() {
 export function authorize() {
   return {
     type: AUTHORIZE,
+  };
+}
+
+export function deleteUser(id) {
+  return {
+    type: DELETE,
+    payload: id,
   };
 }

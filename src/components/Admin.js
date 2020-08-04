@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { deleteUser } from "../store/actions";
 
 class Admin extends Component {
   render() {
@@ -24,7 +25,12 @@ class Admin extends Component {
                 <td>{user.name.split(" ")[1]}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button className="btn btn-danger btn-small">Удалить</button>
+                  <button
+                    className="btn btn-danger btn-small"
+                    onClick={() => this.props.deleteUser(user.id)}
+                  >
+                    Удалить
+                  </button>
                 </td>
                 <td>
                   <button className="btn btn-secondary btn-small">
@@ -44,6 +50,8 @@ const mapStateToProps = (state) => ({
   users: state.main.users,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  deleteUser: (id) => dispatch(deleteUser(id)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);
