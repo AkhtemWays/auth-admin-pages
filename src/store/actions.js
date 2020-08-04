@@ -5,7 +5,28 @@ import {
   ADD_USER,
   ADD_USER_MODE,
   FROM_ADDITION_TO_ADMIN,
+  SET_EDIT_MODE,
+  FROM_EDITING_TO_ADMIN,
+  UPDATE_USER,
 } from "./types";
+
+export function setEditMode(id) {
+  return {
+    type: SET_EDIT_MODE,
+    payload: id,
+  };
+}
+export function updateUser() {
+  return {
+    type: UPDATE_USER,
+  };
+}
+
+export function fromEditingToAdmin() {
+  return {
+    type: FROM_EDITING_TO_ADMIN,
+  };
+}
 
 export function fetchData() {
   return async (dispatch) => {

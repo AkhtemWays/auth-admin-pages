@@ -5,6 +5,9 @@ import {
   ADD_USER_MODE,
   ADD_USER,
   FROM_ADDITION_TO_ADMIN,
+  SET_EDIT_MODE,
+  FROM_EDITING_TO_ADMIN,
+  UPDATE_USER,
 } from "./types";
 
 const initialData = {
@@ -25,6 +28,18 @@ const initialData = {
   additionModeUserName: "",
   additionModeStatus: "unprioritizedUser",
   availableStatuses: ["unprioritizedUser"],
+  userEditMode: false,
+  editModeUserId: "",
+  editModePhone: "",
+  editModeZipcode: "",
+  editModeStreet: "",
+  editModeCity: "",
+  editModeEmail: "",
+  editModeLastName: "",
+  editModeFirstName: "",
+  editModePassword: "",
+  editModeUserName: "",
+  editModeUserStatus: "",
 };
 
 export default function (state = initialData, action) {
@@ -104,6 +119,61 @@ export default function (state = initialData, action) {
                 additionModeStatus: action.payload,
               };
 
+            default:
+              return state;
+          }
+        case "userEditing":
+          switch (action.meta.field) {
+            case "username":
+              return {
+                ...state,
+                editModeUserName: action.paylod,
+              };
+            case "password":
+              return {
+                ...state,
+                editModePassword: action.payload,
+              };
+            case "firstName":
+              return {
+                ...state,
+                editModeFirstName: action.payload,
+              };
+            case "lastName":
+              return {
+                ...state,
+                editModeLastName: action.payload,
+              };
+            case "email":
+              return {
+                ...state,
+                editModeEmail: action.payload,
+              };
+            case "city":
+              return {
+                ...state,
+                editModeCity: action.payload,
+              };
+            case "street":
+              return {
+                ...state,
+                editModeStreet: action.payload,
+              };
+            case "zipcode":
+              return {
+                ...state,
+                editModeZipcode: action.payload,
+              };
+            case "phone":
+              return {
+                ...state,
+                editModePhone: action.payload,
+              };
+            case "status":
+              return {
+                ...state,
+                editModeStatus: action.payload,
+              };
             default:
               return state;
           }
@@ -220,6 +290,84 @@ export default function (state = initialData, action) {
         additionModeFirstName: "",
         additionModePassword: "",
         additionModeUserName: "",
+      };
+    case SET_EDIT_MODE:
+      const editableUser = state.users.find(
+        (user) => user.id === action.payload
+      );
+      return {
+        ...state,
+        userEditMode: true,
+        isAuthorized: true,
+        userAdditionMode: false,
+        editModeUserId: editableUser.id,
+        editModePhone: editableUser.phone,
+        editModeZipcode: editableUser.address.zipcode,
+        editModeStreet: editableUser.address.street,
+        editModeCity: editableUser.address.city,
+        editModeEmail: editableUser.email,
+        editModeLastName: editableUser.name.split(" ")[1],
+        editModeFirstName: editableUser.name.split(" ")[0],
+        editModePassword: editableUser.password,
+        editModeUserName: editableUser.username,
+        editModeUserStatus: editableUser.status,
+      };
+    case FROM_EDITING_TO_ADMIN:
+      return {
+        ...state,
+        isAuthorized: true,
+        userAdditionMode: false,
+        userEditMode: false,
+        editModeUserId: "",
+        editModePhone: "",
+        editModeZipcode: "",
+        editModeStreet: "",
+        editModeCity: "",
+        editModeEmail: "",
+        editModeLastName: "",
+        editModeFirstName: "",
+        editModePassword: "",
+        editModeUserName: "",
+        editModeUserStatus: "",
+      };
+    case UPDATE_USER:
+      const updatedUser = {
+        // userEditMode: false, dont forget
+        id: state.editModeUserId,
+        phone: state.editModePhone,
+        email: state.editModeEmail,
+        name: `${state.editModeFirstName} ${state.editModeLastName}`,
+        password: state.editModePassword,
+        username: state.editModeUserName,
+        status: state.editModeUserStatus,
+        address: {
+          city: state.editModeCity,
+          zipcode: state.editModeZipcode,
+          street: state.editModeStreet,
+        },
+      };
+      const oldUserIdx = state.users.findIndex(
+        (user) => user.id === updatedUser.id
+      );
+      const newUserArray = [...state.users];
+      newUserArray[oldUserIdx] = updatedUser;
+      return {
+        ...state,
+        users: newUserArray,
+        isAuthorized: true,
+        userAdditionMode: false,
+        userEditMode: false,
+        editModeUserId: "",
+        editModePhone: "",
+        editModeZipcode: "",
+        editModeStreet: "",
+        editModeCity: "",
+        editModeEmail: "",
+        editModeLastName: "",
+        editModeFirstName: "",
+        editModePassword: "",
+        editModeUserName: "",
+        editModeUserStatus: "",
       };
 
     default:

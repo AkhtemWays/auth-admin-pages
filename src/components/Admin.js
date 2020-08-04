@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteUser, addUserMode } from "../store/actions";
+import { deleteUser, addUserMode, setEditMode } from "../store/actions";
 import { Link } from "react-router-dom";
 
 class Admin extends Component {
@@ -39,8 +39,11 @@ class Admin extends Component {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-secondary btn-small">
-                    Редактировать
+                  <button
+                    className="btn btn-secondary btn-small"
+                    onClick={() => this.props.setEditMode(user.id)}
+                  >
+                    <Link to="/admin/edit/:userId/">Редактировать</Link>
                   </button>
                 </td>
                 <td>
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   deleteUser: (id) => dispatch(deleteUser(id)),
   addUserMode: () => dispatch(addUserMode()),
+  setEditMode: (id) => dispatch(setEditMode(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

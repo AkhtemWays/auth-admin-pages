@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
-import { addUser, fromAdditionToAdmin } from "../store/actions";
+import { fromEditingToAdmin, updateUser } from "../store/actions";
 import { Link } from "react-router-dom";
 
-class UserAddition extends Component {
+class UserEditing extends Component {
   handleSubmit = () => {
-    this.props.addUser();
-    this.props.updateField("userAddition", "username", "");
-    this.props.updateField("userAddition", "password", "");
-    this.props.updateField("userAddition", "email", "");
-    this.props.updateField("userAddition", "firstName", "");
-    this.props.updateField("userAddition", "lastName", "");
-    this.props.updateField("userAddition", "city", "");
-    this.props.updateField("userAddition", "street", "");
-    this.props.updateField("userAddition", "zipcode", "");
-    this.props.updateField("userAddition", "phone", "");
+    this.props.updateUser();
+    this.props.updateField("userEditing", "username", "");
+    this.props.updateField("userEditing", "password", "");
+    this.props.updateField("userEditing", "email", "");
+    this.props.updateField("userEditing", "firstName", "");
+    this.props.updateField("userEditing", "lastName", "");
+    this.props.updateField("userEditing", "city", "");
+    this.props.updateField("userEditing", "street", "");
+    this.props.updateField("userEditing", "zipcode", "");
+    this.props.updateField("userEditing", "phone", "");
   };
 
   handleAdminBack = () => {
-    fromAdditionToAdmin();
+    this.props.fromEditingToAdmin();
   };
 
   render() {
@@ -46,6 +46,7 @@ class UserAddition extends Component {
               minLength={6}
               type="text"
               name="username"
+              placeholder={this.props.username}
               value={this.props.username}
               className="form-group"
             />
@@ -59,6 +60,7 @@ class UserAddition extends Component {
               type="password"
               name="password"
               value={this.props.password}
+              placeholder={this.props.password}
               className="form-group"
             />
           </div>
@@ -71,6 +73,7 @@ class UserAddition extends Component {
               maxLength={25}
               name="firstName"
               value={this.props.firstName}
+              placeholder={this.props.firstName}
               className="form-group"
             />
           </div>
@@ -83,6 +86,7 @@ class UserAddition extends Component {
               maxLength={25}
               name="lastName"
               value={this.props.lastName}
+              placeholder={this.props.lastName}
               className="form-group"
             />
           </div>
@@ -96,6 +100,7 @@ class UserAddition extends Component {
               maxLength={25}
               name="email"
               value={this.props.email}
+              placeholder={this.props.email}
               className="form-group"
             />
           </div>
@@ -109,6 +114,7 @@ class UserAddition extends Component {
               maxLength={40}
               name="city"
               value={this.props.city}
+              placeholder={this.props.city}
               className="form-group"
             />
           </div>
@@ -122,6 +128,7 @@ class UserAddition extends Component {
               maxLength={40}
               name="street"
               value={this.props.street}
+              placeholder={this.props.street}
               className="form-group"
             />
           </div>
@@ -135,6 +142,7 @@ class UserAddition extends Component {
               maxLength={25}
               name="zipcode"
               value={this.props.zipcode}
+              placeholder={this.props.zipcode}
               className="form-group"
             />
           </div>
@@ -148,6 +156,7 @@ class UserAddition extends Component {
               maxLength={25}
               name="phone"
               value={this.props.phone}
+              placeholder={this.props.phone}
               className="form-group"
             />
             <br />
@@ -167,11 +176,9 @@ class UserAddition extends Component {
                 )
               )}
             </Field>
-            <br />
-            <span>Укажите ваш номер в формате: +X (XXX) XXX-XX-XX</span>
           </div>
           <button onClick={this.handleSubmit} className="bg-primary">
-            Добавить
+            Закончить
           </button>
           <button onClick={this.handleAdminBack} className="bg-secondary">
             <Link to="/admin/">Назад на страницу админа</Link>
@@ -182,12 +189,12 @@ class UserAddition extends Component {
   }
 }
 
-const ReduxFormUserAddition = reduxForm({
-  form: "userAddition",
-})(UserAddition);
+const ReduxFormUserEditing = reduxForm({
+  form: "userEditing",
+})(UserEditing);
 
 const mapStateToProps = (state) => {
-  const selector = formValueSelector("userAddition");
+  const selector = formValueSelector("userEditing");
   const firstName = selector(state, "firstName");
   const lastName = selector(state, "lastName");
   const username = selector(state, "username");
@@ -200,29 +207,29 @@ const mapStateToProps = (state) => {
   const status = selector(state, "status");
 
   return {
-    currentId: state.main.currentId,
-    firstName: state.main.additionModeFirstName || firstName,
-    lastName: state.main.additionModeLastName || lastName,
-    city: state.main.additionModeCity || city,
-    phone: state.main.additionModePhone || phone,
-    zipcode: state.main.additionModeZipcode || zipcode,
-    street: state.main.additionModeStreet || street,
-    username: state.main.additionModeUserName || username,
-    email: state.main.additionModeEmail || email,
-    password: state.main.additionModePassword || password,
+    currentId: state.main.editModeUserId,
+    firstName: state.main.editModeFirstName || firstName,
+    lastName: state.main.editModeLastName || lastName,
+    city: state.main.editModeCity || city,
+    phone: state.main.editModePhone || phone,
+    zipcode: state.main.editModeZipcode || zipcode,
+    street: state.main.editModeStreet || street,
+    username: state.main.editModeUserName || username,
+    email: state.main.editModeEmail || email,
+    password: state.main.editModePassword || password,
     availableStatuses: state.main.availableStatuses,
-    currentStatus: state.main.additionModeStatus || status,
+    currentStatus: state.main.editModeStatus || status,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addUser: () => dispatch(addUser()),
   updateField: (form, field, newValue) =>
     dispatch(change(form, field, newValue)),
-  fromAdditionToAdmin: () => dispatch(fromAdditionToAdmin()),
+  fromEditingToAdmin: () => dispatch(fromEditingToAdmin()),
+  updateUser: () => dispatch(updateUser()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReduxFormUserAddition);
+)(ReduxFormUserEditing);
