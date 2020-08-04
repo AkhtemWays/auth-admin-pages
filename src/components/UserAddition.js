@@ -3,6 +3,7 @@ import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
 import { addUser, fromAdditionToAdmin } from "../store/actions";
 import { Link } from "react-router-dom";
+import "../static/UserAddition.css";
 
 class UserAddition extends Component {
   handleSubmit = () => {
@@ -18,13 +19,9 @@ class UserAddition extends Component {
     this.props.updateField("userAddition", "phone", "");
   };
 
-  handleAdminBack = () => {
-    fromAdditionToAdmin();
-  };
-
   render() {
     return (
-      <div>
+      <div className="usr-add">
         <div align="center">
           <div>
             <label>ID</label>
@@ -35,9 +32,10 @@ class UserAddition extends Component {
               placeholder={this.props.currentId}
               name="id"
               value={this.props.currentId}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Имя пользователя</label>
             <br />
@@ -47,9 +45,10 @@ class UserAddition extends Component {
               type="text"
               name="username"
               value={this.props.username}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Пароль</label>
             <br />
@@ -59,9 +58,10 @@ class UserAddition extends Component {
               type="password"
               name="password"
               value={this.props.password}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Имя</label>
             <br />
@@ -71,9 +71,10 @@ class UserAddition extends Component {
               maxLength={25}
               name="firstName"
               value={this.props.firstName}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Фамилия</label>
             <br />
@@ -83,9 +84,10 @@ class UserAddition extends Component {
               maxLength={25}
               name="lastName"
               value={this.props.lastName}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Почта</label>
             <br />
@@ -96,9 +98,10 @@ class UserAddition extends Component {
               maxLength={25}
               name="email"
               value={this.props.email}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Город проживания</label>
             <br />
@@ -109,9 +112,10 @@ class UserAddition extends Component {
               maxLength={40}
               name="city"
               value={this.props.city}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Улица</label>
             <br />
@@ -122,9 +126,10 @@ class UserAddition extends Component {
               maxLength={40}
               name="street"
               value={this.props.street}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Почтовый индекс</label>
             <br />
@@ -135,9 +140,10 @@ class UserAddition extends Component {
               maxLength={25}
               name="zipcode"
               value={this.props.zipcode}
-              className="form-group"
+              className="form-control add-field"
             />
           </div>
+          <hr />
           <div>
             <label>Номер телефона</label>
             <br />
@@ -148,15 +154,18 @@ class UserAddition extends Component {
               maxLength={25}
               name="phone"
               value={this.props.phone}
-              className="form-group"
+              className="form-control add-field"
             />
             <br />
-            <span>Укажите ваш номер в формате: +X (XXX) XXX-XX-XX</span>
+            <span className="small">
+              Укажите ваш номер в формате: +X (XXX) XXX-XX-XX
+            </span>
           </div>
+          <hr />
           <div>
             <label>Статус пользователя</label>
             <br />
-            <Field component="select" name="status" className="form-group">
+            <Field component="select" name="status" className="form-control">
               {this.props.availableStatuses.map((st) =>
                 st === this.props.currentStatus ? (
                   <option value={st} selected>
@@ -167,14 +176,19 @@ class UserAddition extends Component {
                 )
               )}
             </Field>
-            <br />
-            <span>Укажите ваш номер в формате: +X (XXX) XXX-XX-XX</span>
           </div>
-          <button onClick={this.handleSubmit} className="bg-primary">
+          <hr />
+          <button
+            onClick={this.handleSubmit}
+            className="btn btn-primary btn-lg m-2"
+          >
             Добавить
           </button>
-          <button onClick={this.handleAdminBack} className="bg-secondary">
-            <Link to="/admin/">Назад</Link>
+          <button
+            onClick={this.props.fromAdditionToAdmin}
+            className="btn btn-info btn-lg m-2"
+          >
+            Назад
           </button>
         </div>
       </div>

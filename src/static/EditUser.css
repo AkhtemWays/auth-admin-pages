@@ -1,0 +1,10 @@
+.usr-box {
+  margin-top: 1em;
+  background-color: beige;
+  padding: 2em;
+  background-size: cover;
+}
+
+.usr-edit {
+  border-radius: 5px;
+}

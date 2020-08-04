@@ -1,0 +1,10 @@
+.auth {
+  margin-top: 3em;
+  background-color: beige;
+  padding: 17em;
+  background-size: cover;
+}
+
+.authField {
+  border-radius: 5px;
+}

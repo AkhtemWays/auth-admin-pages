@@ -387,6 +387,14 @@ export default function (state = initialData, action) {
         editModeUserStatus: "",
       };
     case SET_DETAIL:
+      if (action.payload == 0) {
+        window.alert(
+          "Просмотр информации о данном пользователе категорически запрещён для всех!"
+        );
+        return {
+          ...state,
+        };
+      }
       const chosenUser = state.users.find((user) => user.id == action.payload);
       return {
         ...state,

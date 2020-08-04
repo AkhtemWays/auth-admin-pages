@@ -3,6 +3,7 @@ import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
 import { fromEditingToAdmin, updateUser } from "../store/actions";
 import { Link } from "react-router-dom";
+import "../static/EditUser.css";
 
 class UserEditing extends Component {
   handleSubmit = () => {
@@ -24,7 +25,7 @@ class UserEditing extends Component {
 
   render() {
     return (
-      <div>
+      <div className="usr-box">
         <div align="center">
           <div>
             <label>ID</label>
@@ -35,9 +36,10 @@ class UserEditing extends Component {
               placeholder={this.props.currentId}
               name="id"
               value={this.props.currentId}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Имя пользователя</label>
             <br />
@@ -48,9 +50,10 @@ class UserEditing extends Component {
               name="username"
               placeholder={this.props.username}
               value={this.props.username}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Пароль</label>
             <br />
@@ -61,9 +64,10 @@ class UserEditing extends Component {
               name="password"
               value={this.props.password}
               placeholder={this.props.password}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Имя</label>
             <br />
@@ -74,9 +78,10 @@ class UserEditing extends Component {
               name="firstName"
               value={this.props.firstName}
               placeholder={this.props.firstName}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Фамилия</label>
             <br />
@@ -87,9 +92,10 @@ class UserEditing extends Component {
               name="lastName"
               value={this.props.lastName}
               placeholder={this.props.lastName}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Почта</label>
             <br />
@@ -101,9 +107,10 @@ class UserEditing extends Component {
               name="email"
               value={this.props.email}
               placeholder={this.props.email}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Город проживания</label>
             <br />
@@ -115,9 +122,10 @@ class UserEditing extends Component {
               name="city"
               value={this.props.city}
               placeholder={this.props.city}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Улица</label>
             <br />
@@ -129,9 +137,10 @@ class UserEditing extends Component {
               name="street"
               value={this.props.street}
               placeholder={this.props.street}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Почтовый индекс</label>
             <br />
@@ -143,9 +152,10 @@ class UserEditing extends Component {
               name="zipcode"
               value={this.props.zipcode}
               placeholder={this.props.zipcode}
-              className="form-group"
+              className="form-control usr-edit"
             />
           </div>
+          <hr />
           <div>
             <label>Номер телефона</label>
             <br />
@@ -157,15 +167,22 @@ class UserEditing extends Component {
               name="phone"
               value={this.props.phone}
               placeholder={this.props.phone}
-              className="form-group"
+              className="form-control usr-edit"
             />
             <br />
-            <span>Укажите ваш номер в формате: +X (XXX) XXX-XX-XX</span>
+            <span className="small">
+              Укажите ваш номер в формате: +X (XXX) XXX-XX-XX
+            </span>
           </div>
+          <hr />
           <div>
             <label>Статус пользователя</label>
             <br />
-            <Field component="select" name="status" className="form-group">
+            <Field
+              component="select"
+              name="status"
+              className="form-control usr-edit"
+            >
               {this.props.availableStatuses.map((st) =>
                 st === this.props.currentStatus ? (
                   <option value={st} selected>
@@ -177,10 +194,17 @@ class UserEditing extends Component {
               )}
             </Field>
           </div>
-          <button onClick={this.handleSubmit} className="bg-primary">
+          <hr />
+          <button
+            onClick={this.handleSubmit}
+            className="btn btn-primary btn-lg m-2"
+          >
             Закончить
           </button>
-          <button onClick={this.handleAdminBack} className="bg-secondary">
+          <button
+            onClick={this.handleAdminBack}
+            className="btn btn-info btn-lg m-2"
+          >
             Назад
           </button>
         </div>

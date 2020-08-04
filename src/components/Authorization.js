@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, formValueSelector, Field, change } from "redux-form";
 import { connect } from "react-redux";
 import { authorize } from "../store/actions";
+import "../static/Authorization.css";
 
 class Authorization extends Component {
   handleSubmit = (ev) => {
@@ -12,9 +13,9 @@ class Authorization extends Component {
 
   render() {
     return (
-      <div align="center">
+      <div align="center" className="auth">
         <div>
-          <label>Введите имя пользователя:</label>
+          <label className="m-2">Введите имя пользователя:</label>
           <br />
           <Field
             component="input"
@@ -24,10 +25,12 @@ class Authorization extends Component {
             name="username"
             value={this.props.username}
             placeholder="Username"
+            className="m-2 authField form-control"
           />
         </div>
+        <hr />
         <div>
-          <label>Введите пароль:</label>
+          <label className="m-2">Введите пароль:</label>
           <br />
           <Field
             component="input"
@@ -36,9 +39,13 @@ class Authorization extends Component {
             name="password"
             value={this.props.password}
             placeholder="Password"
+            className="m-2 authField form-control"
           />
         </div>
-        <button onClick={this.handleSubmit} className="bg-primary">
+        <button
+          onClick={this.handleSubmit}
+          className="btn btn-primary btn-small mt-4"
+        >
           Войти
         </button>
       </div>
