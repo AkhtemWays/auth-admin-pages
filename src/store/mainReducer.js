@@ -74,21 +74,21 @@ export default function (state = initialData, action) {
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
-        case "login":
-          if (action.meta.field === "password") {
-            return {
-              ...state,
-              currentPassword: action.payload,
-            };
-          } else if (action.meta.field === "username") {
-            return {
-              ...state,
-              currentUsername: action.payload,
-            };
-          }
-          return {
-            ...state,
-          };
+        // case "login":
+        //   if (action.meta.field === "password") {
+        //     return {
+        //       ...state,
+        //       currentPassword: action.payload,
+        //     };
+        //   } else if (action.meta.field === "username") {
+        //     return {
+        //       ...state,
+        //       currentUsername: action.payload,
+        //     };
+        //   }
+        //   return {
+        //     ...state,
+        //   };
         case "adminFeatures":
           if (action.meta.field === "sortOption") {
             switch (action.payload) {
