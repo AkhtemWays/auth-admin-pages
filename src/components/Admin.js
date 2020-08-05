@@ -7,6 +7,7 @@ import {
   setDetail,
 } from "../store/actions";
 import { Link } from "react-router-dom";
+import { Field, formValueSelector, reduxForm } from "redux-form";
 
 class Admin extends Component {
   render() {
@@ -20,16 +21,41 @@ class Admin extends Component {
               <th scope="col">Фамилия</th>
               <th scope="col">Почта</th>
               <th scope="col">
-                <Link to="/admin/add/" onClick={this.props.addUserMode}>
-                  Добавить Пользователя
+                <Link to="/admin/add/">
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={this.props.addUserMode}
+                  >
+                    Добавить Пользователя
+                  </button>
                 </Link>
               </th>
-              <th scope="col"></th>
+              <th scope="col">
+                <Field
+                  component="select"
+                  className="custom-select ml-1"
+                  style={{ width: "140px" }}
+                  name="sortOption"
+                  value={this.props.currentSortOption}
+                >
+                  {this.props.sortOptions.map((option, index) =>
+                    option === this.props.currentSortOption ? (
+                      <option value={option} defaultValue={option} key={index}>
+                        {option}
+                      </option>
+                    ) : (
+                      <option value={option} key={index}>
+                        {option}
+                      </option>
+                    )
+                  )}
+                </Field>
+              </th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            {this.props.users.map((user) => (
+            {this.props.currentUsers.map((user) => (
               <tr>
                 <th scope="row">{user.id}</th>
                 <td>{user.name.split(" ")[0]}</td>
@@ -44,20 +70,24 @@ class Admin extends Component {
                   </button>
                 </td>
                 <td>
-                  <button
-                    className="btn btn-secondary btn-small"
-                    onClick={() => this.props.setEditMode(user.id)}
-                  >
-                    <Link to="/admin/edit/:userId/">Редактировать</Link>
-                  </button>
+                  <Link to="/admin/edit/:userId/">
+                    <button
+                      className="btn btn-secondary btn-small"
+                      onClick={() => this.props.setEditMode(user.id)}
+                    >
+                      Редактировать
+                    </button>
+                  </Link>
                 </td>
                 <td>
-                  <button
-                    className="btn btn-info btn-small"
-                    onClick={() => this.props.setDetail(user.id)}
-                  >
-                    Подробнее
-                  </button>
+                  <Link to="/admin/detail/:userId/">
+                    <button
+                      className="btn btn-info btn-small"
+                      onClick={() => this.props.setDetail(user.id)}
+                    >
+                      Подробнее
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -68,9 +98,19 @@ class Admin extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  users: state.main.users,
-});
+const ReduxFormAdmin = reduxForm({
+  form: "sortOption",
+})(Admin);
+
+const mapStateToProps = (state) => {
+  const selector = formValueSelector("sortOption");
+  const sortOption = selector(state, "sortOption");
+  return {
+    currentUsers: state.main.currentUsers,
+    currentSortOption: state.main.currentSortOption || sortOption,
+    sortOptions: state.main.sortOptions,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   deleteUser: (id) => dispatch(deleteUser(id)),
@@ -79,4 +119,4 @@ const mapDispatchToProps = (dispatch) => ({
   setDetail: (id) => dispatch(setDetail(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin);
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxFormAdmin);

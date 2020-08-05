@@ -14,6 +14,7 @@ import {
 
 const initialData = {
   users: [],
+  currentUsers: [],
   isAuthorized: false,
   currentUsername: "",
   currentPassword: "",
@@ -57,6 +58,8 @@ const initialData = {
       street: "",
     },
   },
+  sortOptions: ["ID", "Имя", "Фамилия"],
+  currentSortOption: "ID",
 };
 
 export default function (state = initialData, action) {
@@ -65,6 +68,7 @@ export default function (state = initialData, action) {
       return {
         ...state,
         users: [...action.payload],
+        currentUsers: [...action.payload],
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
@@ -83,6 +87,41 @@ export default function (state = initialData, action) {
           return {
             ...state,
           };
+        case "sortOption":
+          switch (action.payload) {
+            case "ID":
+              const currentUsersSortedId = state.currentUsers.sort(
+                (a, b) => a.id - b.id
+              );
+              return {
+                ...state,
+                currentSortOption: action.payload,
+                currentUsers: currentUsersSortedId,
+              };
+            case "Имя":
+              console.log(action.payload);
+              const currentUsersSortedName = state.currentUsers.sort((a, b) =>
+                a.name.split(" ")[0] > b.name.split(" ")[0] ? 1 : -1
+              );
+              return {
+                ...state,
+                currentSortOption: action.payload,
+                currentUsers: currentUsersSortedName,
+              };
+            case "Фамилия":
+              const currentUsersSortedSurname = state.currentUsers.sort(
+                (a, b) => (a.name.split(" ")[1] > b.name.split(" ")[1] ? 1 : -1)
+              );
+              return {
+                ...state,
+                currentSortOption: action.payload,
+                currentUsers: currentUsersSortedSurname,
+              };
+
+            default:
+              return state;
+          }
+
         case "userAddition":
           switch (action.meta.field) {
             case "username":
@@ -249,6 +288,9 @@ export default function (state = initialData, action) {
         return {
           ...state,
           users: state.users.filter((user) => user.id !== action.payload),
+          currentUsers: state.currentUsers.filter(
+            (user) => user.id !== action.payload
+          ),
         };
       }
       return {
@@ -293,6 +335,7 @@ export default function (state = initialData, action) {
         additionModePassword: "",
         additionModeUserName: "",
         users: [...state.users, newUser],
+        currentUsers: [...state.currentUsers, newUser],
       };
     case FROM_ADDITION_TO_ADMIN:
       return {
@@ -349,7 +392,6 @@ export default function (state = initialData, action) {
       };
     case UPDATE_USER:
       const updatedUser = {
-        // userEditMode: false, dont forget
         id: state.editModeUserId,
         phone: state.editModePhone,
         email: state.editModeEmail,
@@ -366,11 +408,17 @@ export default function (state = initialData, action) {
       const oldUserIdx = state.users.findIndex(
         (user) => user.id === updatedUser.id
       );
-      const newUserArray = [...state.users];
-      newUserArray[oldUserIdx] = updatedUser;
+      const oldCurrentUserIdx = state.currentUsers.findIndex(
+        (user) => user.id === updatedUser.id
+      );
+      const newUserArrayUsers = [...state.users];
+      const newCurrentUserArrayUsers = [...state.currentUsers];
+      newUserArrayUsers[oldUserIdx] = updatedUser;
+      newCurrentUserArrayUsers[oldCurrentUserIdx] = updatedUser;
       return {
         ...state,
-        users: newUserArray,
+        users: newUserArrayUsers,
+        currentUsers: newCurrentUserArrayUsers,
         isAuthorized: true,
         userAdditionMode: false,
         userEditMode: false,
@@ -387,15 +435,9 @@ export default function (state = initialData, action) {
         editModeUserStatus: "",
       };
     case SET_DETAIL:
-      if (action.payload == 0) {
-        window.alert(
-          "Просмотр информации о данном пользователе категорически запрещён для всех!"
-        );
-        return {
-          ...state,
-        };
-      }
-      const chosenUser = state.users.find((user) => user.id == action.payload);
+      const chosenUser = state.currentUsers.find(
+        (user) => user.id == action.payload
+      );
       return {
         ...state,
         userAdditionMode: false,
