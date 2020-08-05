@@ -20,9 +20,7 @@ class Authorization extends Component {
     };
 
     if (this.props.username ? this.props.username.length < 6 : false) {
-      errors.username.push(
-        "Имя пользователя не должно быть менее двух символов"
-      );
+      errors.username.push("Имя пользователя не должно быть менее 6 символов");
     }
     if (this.props.username ? this.props.username.length > 25 : false) {
       errors.username.push("Имя пользователя не может превышать 25 символов");
@@ -42,6 +40,7 @@ class Authorization extends Component {
   handleSubmit = (ev) => {
     const errors = this.getErrors();
     if (!errors.username.length && !errors.password.length) {
+      this.setState({ errors: {} });
       this.props.authorize();
       this.props.updateField("login", "username", "");
       this.props.updateField("login", "password", "");
@@ -66,6 +65,7 @@ class Authorization extends Component {
             value={this.props.username}
             placeholder="Username"
             className="m-2 authField form-control"
+            required
           />
           {this.state.errors.username &&
             this.state.errors.username.map((error) => (
@@ -86,6 +86,7 @@ class Authorization extends Component {
             value={this.props.password}
             placeholder="Password"
             className="m-2 authField form-control"
+            required
           />
           {this.state.errors.password &&
             this.state.errors.password.map((error) => (

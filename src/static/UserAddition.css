@@ -1,10 +1,6 @@
 .usr-add {
-  margin-top: 1em;
-  background-color: beige;
-  padding: 2em;
-  background-size: cover;
-}
-
-.add-field {
-  border-radius: 5px;
+    margin-top: 3em;
+    background-color: beige;
+    padding: 5em;
+    background-size: cover;
 }

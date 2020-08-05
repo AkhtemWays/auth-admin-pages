@@ -15,7 +15,6 @@ import {
 const initialData = {
   users: [],
   currentUsers: [],
-  showToUser: [],
   isAuthorized: false,
   currentUsername: "",
   currentPassword: "",
@@ -74,21 +73,21 @@ export default function (state = initialData, action) {
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
-        // case "login":
-        //   if (action.meta.field === "password") {
-        //     return {
-        //       ...state,
-        //       currentPassword: action.payload,
-        //     };
-        //   } else if (action.meta.field === "username") {
-        //     return {
-        //       ...state,
-        //       currentUsername: action.payload,
-        //     };
-        //   }
-        //   return {
-        //     ...state,
-        //   };
+        case "login":
+          if (action.meta.field === "password") {
+            return {
+              ...state,
+              currentPassword: action.payload,
+            };
+          } else if (action.meta.field === "username") {
+            return {
+              ...state,
+              currentUsername: action.payload,
+            };
+          }
+          return {
+            ...state,
+          };
         case "adminFeatures":
           if (action.meta.field === "sortOption") {
             switch (action.payload) {
@@ -375,9 +374,6 @@ export default function (state = initialData, action) {
           currentUsers: state.currentUsers.filter(
             (user) => user.id !== action.payload
           ),
-          currentUsersCopy: state.currentUsersCopy.filter(
-            (user) => user.id !== action.payload
-          ),
         };
       }
       return {
@@ -393,11 +389,17 @@ export default function (state = initialData, action) {
       };
 
     case ADD_USER:
+      const modifiedFirstName =
+        state.additionModeFirstName.charAt(0).toUpperCase() +
+        state.additionModeFirstName.slice(1);
+      const modifiedLastName =
+        state.additionModeLastName.charAt(0).toUpperCase() +
+        state.additionModeLastName.slice(1);
       const newUser = {
         username: state.additionModeUserName,
         password: state.additionModePassword,
         id: state.currentId,
-        name: `${state.additionModeFirstName} ${state.additionModeLastName}`,
+        name: `${modifiedFirstName} ${modifiedLastName}`,
         email: state.additionModeEmail,
         phone: state.additionModePhone,
         status: state.additionModeStatus,
@@ -423,7 +425,6 @@ export default function (state = initialData, action) {
         additionModeUserName: "",
         users: [...state.users, newUser],
         currentUsers: [...state.currentUsers, newUser],
-        currentUsersCopy: [...state.currentUsersCopy, newUser],
       };
     case FROM_ADDITION_TO_ADMIN:
       return {
@@ -507,7 +508,6 @@ export default function (state = initialData, action) {
         ...state,
         users: newUserArrayUsers,
         currentUsers: newCurrentUserArrayUsers,
-        currentUsersCopy: [...newCurrentUserArrayUsers],
         isAuthorized: true,
         userAdditionMode: false,
         userEditMode: false,

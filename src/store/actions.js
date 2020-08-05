@@ -50,7 +50,7 @@ export function fetchData() {
     const normalizedData = [];
     const superUser = {
       username: "AkhtemWays",
-      password: "123",
+      password: "1234567",
       id: 0,
       name: "Akhtem Ways",
       email: "ahty.study@bk.ru",
@@ -62,7 +62,7 @@ export function fetchData() {
         street: "Kaluzhskaya street",
       },
     };
-    console.log(superUser);
+
     normalizedData.push(superUser);
     for (let user of data) {
       const normalizedUser = {

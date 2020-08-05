@@ -15,7 +15,11 @@ class Content extends Component {
       <Router>
         <Route path="/" exact={true} render={() => <Redirect to="/login/" />} />
         <Route component={Authorization} exact={true} strict path="/login/" />
-        {this.props.isAuthorized && <UserAuthorizedFeatures />}
+        {this.props.isAuthorized ? (
+          <UserAuthorizedFeatures />
+        ) : (
+          <Redirect to="/login/" />
+        )}
       </Router>
     );
   }
