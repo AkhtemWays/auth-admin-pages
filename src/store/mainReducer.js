@@ -15,6 +15,7 @@ import {
 const initialData = {
   users: [],
   currentUsers: [],
+  currentUsersCopy: [],
   isAuthorized: false,
   currentUsername: "",
   currentPassword: "",
@@ -60,6 +61,7 @@ const initialData = {
   },
   sortOptions: ["ID", "Имя", "Фамилия"],
   currentSortOption: "ID",
+  search: "",
 };
 
 export default function (state = initialData, action) {
@@ -69,6 +71,7 @@ export default function (state = initialData, action) {
         ...state,
         users: [...action.payload],
         currentUsers: [...action.payload],
+        currentUsersCopy: [...action.payload],
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
@@ -87,39 +90,60 @@ export default function (state = initialData, action) {
           return {
             ...state,
           };
-        case "sortOption":
-          switch (action.payload) {
-            case "ID":
-              const currentUsersSortedId = state.currentUsers.sort(
-                (a, b) => a.id - b.id
-              );
-              return {
-                ...state,
-                currentSortOption: action.payload,
-                currentUsers: currentUsersSortedId,
-              };
-            case "Имя":
-              console.log(action.payload);
-              const currentUsersSortedName = state.currentUsers.sort((a, b) =>
-                a.name.split(" ")[0] > b.name.split(" ")[0] ? 1 : -1
-              );
-              return {
-                ...state,
-                currentSortOption: action.payload,
-                currentUsers: currentUsersSortedName,
-              };
-            case "Фамилия":
-              const currentUsersSortedSurname = state.currentUsers.sort(
-                (a, b) => (a.name.split(" ")[1] > b.name.split(" ")[1] ? 1 : -1)
-              );
-              return {
-                ...state,
-                currentSortOption: action.payload,
-                currentUsers: currentUsersSortedSurname,
-              };
-
-            default:
-              return state;
+        case "adminFeatures":
+          if (action.meta.field === "sortOption") {
+            switch (action.payload) {
+              case "ID":
+                const currentUsersSortedId = state.currentUsers.sort(
+                  (a, b) => a.id - b.id
+                );
+                return {
+                  ...state,
+                  currentSortOption: action.payload,
+                  currentUsers: currentUsersSortedId,
+                  currentUsersCopy: [...currentUsersSortedId],
+                };
+              case "Имя":
+                console.log(action.payload);
+                const currentUsersSortedName = state.currentUsers.sort((a, b) =>
+                  a.name.split(" ")[0] > b.name.split(" ")[0] ? 1 : -1
+                );
+                return {
+                  ...state,
+                  currentSortOption: action.payload,
+                  currentUsers: currentUsersSortedName,
+                  currentUsersCopy: [...currentUsersSortedName],
+                };
+              case "Фамилия":
+                const currentUsersSortedSurname = state.currentUsers.sort(
+                  (a, b) =>
+                    a.name.split(" ")[1] > b.name.split(" ")[1] ? 1 : -1
+                );
+                return {
+                  ...state,
+                  currentSortOption: action.payload,
+                  currentUsers: currentUsersSortedSurname,
+                  currentUsersCopy: [...currentUsersSortedSurname],
+                };
+              default:
+                return state;
+            }
+          } else if (action.meta.field === "search") {
+            const re = new RegExp(action.payload, "i");
+            const filteredCurrentUsers = [
+              ...state.currentUsersCopy,
+            ].filter((user) =>
+              user.name.match(re) !== null
+                ? true
+                : user.email.match(re) !== null
+                ? true
+                : false
+            );
+            return {
+              ...state,
+              search: action.payload,
+              currentUsers: filteredCurrentUsers,
+            };
           }
 
         case "userAddition":
@@ -127,7 +151,7 @@ export default function (state = initialData, action) {
             case "username":
               return {
                 ...state,
-                additionModeUserName: action.paylod,
+                additionModeUserName: action.payload,
               };
             case "password":
               return {
@@ -291,6 +315,9 @@ export default function (state = initialData, action) {
           currentUsers: state.currentUsers.filter(
             (user) => user.id !== action.payload
           ),
+          currentUsersCopy: state.currentUsersCopy.filter(
+            (user) => user.id !== action.payload
+          ),
         };
       }
       return {
@@ -336,6 +363,7 @@ export default function (state = initialData, action) {
         additionModeUserName: "",
         users: [...state.users, newUser],
         currentUsers: [...state.currentUsers, newUser],
+        currentUsersCopy: [...state.currentUsersCopy, newUser],
       };
     case FROM_ADDITION_TO_ADMIN:
       return {
@@ -419,6 +447,7 @@ export default function (state = initialData, action) {
         ...state,
         users: newUserArrayUsers,
         currentUsers: newCurrentUserArrayUsers,
+        currentUsersCopy: [...newCurrentUserArrayUsers],
         isAuthorized: true,
         userAdditionMode: false,
         userEditMode: false,

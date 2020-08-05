@@ -23,18 +23,19 @@ class Admin extends Component {
               <th scope="col">
                 <Link to="/admin/add/">
                   <button
-                    className="btn btn-sm btn-success"
+                    className="btn btn-lg btn-success"
                     onClick={this.props.addUserMode}
                   >
-                    Добавить Пользователя
+                    Добавить
                   </button>
                 </Link>
               </th>
               <th scope="col">
+                <label>Сортировать по: </label>
                 <Field
                   component="select"
                   className="custom-select ml-1"
-                  style={{ width: "140px" }}
+                  style={{ width: "200px" }}
                   name="sortOption"
                   value={this.props.currentSortOption}
                 >
@@ -51,7 +52,16 @@ class Admin extends Component {
                   )}
                 </Field>
               </th>
-              <th scope="col"></th>
+              <th scope="col">
+                <label>Поиск: </label>
+                <Field
+                  component="input"
+                  className="form-control"
+                  style={{ width: "200px" }}
+                  name="search"
+                  value={this.props.search}
+                />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -63,16 +73,16 @@ class Admin extends Component {
                 <td>{user.email}</td>
                 <td>
                   <button
-                    className="btn btn-danger btn-small"
+                    className="btn btn-danger btn-lg"
                     onClick={() => this.props.deleteUser(user.id)}
                   >
-                    Удалить
+                    Удалить{" "}
                   </button>
                 </td>
                 <td>
                   <Link to="/admin/edit/:userId/">
                     <button
-                      className="btn btn-secondary btn-small"
+                      className="btn btn-secondary btn-lg"
                       onClick={() => this.props.setEditMode(user.id)}
                     >
                       Редактировать
@@ -82,7 +92,7 @@ class Admin extends Component {
                 <td>
                   <Link to="/admin/detail/:userId/">
                     <button
-                      className="btn btn-info btn-small"
+                      className="btn btn-info btn-lg"
                       onClick={() => this.props.setDetail(user.id)}
                     >
                       Подробнее
@@ -99,16 +109,18 @@ class Admin extends Component {
 }
 
 const ReduxFormAdmin = reduxForm({
-  form: "sortOption",
+  form: "adminFeatures",
 })(Admin);
 
 const mapStateToProps = (state) => {
-  const selector = formValueSelector("sortOption");
+  const selector = formValueSelector("adminFeatures");
   const sortOption = selector(state, "sortOption");
+  const search = selector(state, "search");
   return {
     currentUsers: state.main.currentUsers,
     currentSortOption: state.main.currentSortOption || sortOption,
     sortOptions: state.main.sortOptions,
+    search: state.main.search || search,
   };
 };
 

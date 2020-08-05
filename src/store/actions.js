@@ -10,7 +10,6 @@ import {
   UPDATE_USER,
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
-  CHANGE_SORT_TYPE,
 } from "./types";
 
 export function fromDetailToAdmin() {

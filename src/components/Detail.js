@@ -80,21 +80,6 @@ class Detail extends Component {
     );
   }
 }
-const superUser = {
-  username: "AkhtemWays",
-  password: "123",
-  id: 0,
-  name: "Akhtem Ways",
-  email: "ahty.study@bk.ru",
-  phone: "+7 (900) 475-18-16",
-  status: "superUser",
-  address: {
-    city: "Moscow",
-    zipcode: "106810",
-    street: "Kaluzhskaya street",
-  },
-};
-
 const mapStateToProps = (state) => ({
   detailedUser: state.main.detailedUser,
 });

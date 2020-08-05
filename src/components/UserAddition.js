@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
 import { addUser, fromAdditionToAdmin } from "../store/actions";
-import { Link } from "react-router-dom";
 import "../static/UserAddition.css";
 
 class UserAddition extends Component {
