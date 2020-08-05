@@ -15,7 +15,7 @@ import {
 const initialData = {
   users: [],
   currentUsers: [],
-  currentUsersCopy: [],
+  showToUser: [],
   isAuthorized: false,
   currentUsername: "",
   currentPassword: "",
@@ -71,7 +71,6 @@ export default function (state = initialData, action) {
         ...state,
         users: [...action.payload],
         currentUsers: [...action.payload],
-        currentUsersCopy: [...action.payload],
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
@@ -94,56 +93,117 @@ export default function (state = initialData, action) {
           if (action.meta.field === "sortOption") {
             switch (action.payload) {
               case "ID":
-                const currentUsersSortedId = state.currentUsers.sort(
-                  (a, b) => a.id - b.id
-                );
+                const re1 = new RegExp(state.search, "i");
+                const currentUsersSortedId = [...state.users]
+                  .sort((a, b) => a.id - b.id)
+                  .filter((user) =>
+                    user.name.match(re1) !== null
+                      ? true
+                      : user.email.match(re1) !== null
+                      ? true
+                      : false
+                  );
                 return {
                   ...state,
                   currentSortOption: action.payload,
                   currentUsers: currentUsersSortedId,
-                  currentUsersCopy: [...currentUsersSortedId],
                 };
               case "Имя":
-                console.log(action.payload);
-                const currentUsersSortedName = state.currentUsers.sort((a, b) =>
-                  a.name.split(" ")[0] > b.name.split(" ")[0] ? 1 : -1
-                );
+                const re2 = new RegExp(state.search, "i");
+                const currentUsersSortedName = [...state.users]
+                  .sort((a, b) =>
+                    a.name.split(" ")[0] >= b.name.split(" ")[0] ? 1 : -1
+                  )
+                  .filter((user) =>
+                    user.name.match(re2) !== null
+                      ? true
+                      : user.email.match(re2) !== null
+                      ? true
+                      : false
+                  );
                 return {
                   ...state,
                   currentSortOption: action.payload,
                   currentUsers: currentUsersSortedName,
-                  currentUsersCopy: [...currentUsersSortedName],
                 };
               case "Фамилия":
-                const currentUsersSortedSurname = state.currentUsers.sort(
-                  (a, b) =>
-                    a.name.split(" ")[1] > b.name.split(" ")[1] ? 1 : -1
-                );
+                const re3 = new RegExp(state.search, "i");
+                const currentUsersSortedSurname = [...state.users]
+                  .sort((a, b) =>
+                    a.name.split(" ")[1] >= b.name.split(" ")[1] ? 1 : -1
+                  )
+                  .filter((user) =>
+                    user.name.match(re3) !== null
+                      ? true
+                      : user.email.match(re3) !== null
+                      ? true
+                      : false
+                  );
                 return {
                   ...state,
                   currentSortOption: action.payload,
                   currentUsers: currentUsersSortedSurname,
-                  currentUsersCopy: [...currentUsersSortedSurname],
                 };
               default:
                 return state;
             }
           } else if (action.meta.field === "search") {
-            const re = new RegExp(action.payload, "i");
-            const filteredCurrentUsers = [
-              ...state.currentUsersCopy,
-            ].filter((user) =>
-              user.name.match(re) !== null
-                ? true
-                : user.email.match(re) !== null
-                ? true
-                : false
-            );
-            return {
-              ...state,
-              search: action.payload,
-              currentUsers: filteredCurrentUsers,
-            };
+            switch (state.currentSortOption) {
+              case "ID":
+                const re4 = new RegExp(action.payload, "i");
+                const currentUsersSortedIdSearch = [...state.users]
+                  .sort((a, b) => a.id - b.id)
+                  .filter((user) =>
+                    user.name.match(re4) !== null
+                      ? true
+                      : user.email.match(re4) !== null
+                      ? true
+                      : false
+                  );
+                return {
+                  ...state,
+                  currentUsers: currentUsersSortedIdSearch,
+                  search: action.payload,
+                };
+              case "Имя":
+                const re5 = new RegExp(action.payload, "i");
+                const currentUsersSortedNameSearch = [...state.users]
+                  .sort((a, b) =>
+                    a.name.split(" ")[0] >= b.name.split(" ")[0] ? 1 : -1
+                  )
+                  .filter((user) =>
+                    user.name.match(re5) !== null
+                      ? true
+                      : user.email.match(re5) !== null
+                      ? true
+                      : false
+                  );
+                return {
+                  ...state,
+                  currentUsers: currentUsersSortedNameSearch,
+                  search: action.payload,
+                };
+              case "Фамилия":
+                const re6 = new RegExp(action.payload, "i");
+                const currentUsersSortedSurnameSearch = [...state.users]
+                  .sort((a, b) =>
+                    a.name.split(" ")[1] >= b.name.split(" ")[1] ? 1 : -1
+                  )
+                  .filter((user) =>
+                    user.name.match(re6) !== null
+                      ? true
+                      : user.email.match(re6) !== null
+                      ? true
+                      : false
+                  );
+                return {
+                  ...state,
+                  currentUsers: currentUsersSortedSurnameSearch,
+                  search: action.payload,
+                };
+              default:
+                return state;
+            }
           }
 
         case "userAddition":
