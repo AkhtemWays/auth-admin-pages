@@ -11,6 +11,7 @@ import {
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
 } from "./types";
+import getPhoneNumber from "../utils/getPhoneNumber";
 
 const initialData = {
   users: [],
@@ -266,7 +267,7 @@ export default function (state = initialData, action) {
             case "username":
               return {
                 ...state,
-                editModeUserName: action.paylod,
+                editModeUserName: action.payload,
               };
             case "password":
               return {
@@ -401,7 +402,7 @@ export default function (state = initialData, action) {
         id: state.currentId,
         name: `${modifiedFirstName} ${modifiedLastName}`,
         email: state.additionModeEmail,
-        phone: state.additionModePhone,
+        phone: getPhoneNumber(state.additionModePhone),
         status: state.additionModeStatus,
         address: {
           city: state.additionModeCity,
@@ -480,11 +481,18 @@ export default function (state = initialData, action) {
         editModeUserStatus: "",
       };
     case UPDATE_USER:
+      const modifiedFirstNameEdit =
+        state.editModeFirstName.charAt(0).toUpperCase() +
+        state.editModeFirstName.slice(1);
+      const modifiedLastNameEdit =
+        state.editModeLastName.charAt(0).toUpperCase() +
+        state.editModeLastName.slice(1);
+      console.log(state.editModeUserName);
       const updatedUser = {
         id: state.editModeUserId,
-        phone: state.editModePhone,
+        phone: getPhoneNumber(state.editModePhone),
         email: state.editModeEmail,
-        name: `${state.editModeFirstName} ${state.editModeLastName}`,
+        name: `${modifiedFirstNameEdit} ${modifiedLastNameEdit}`,
         password: state.editModePassword,
         username: state.editModeUserName,
         status: state.editModeUserStatus,

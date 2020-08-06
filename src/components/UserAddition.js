@@ -143,7 +143,6 @@ class UserAddition extends Component {
         break;
       }
     }
-    console.log(areErrors);
     if (!areErrors) {
       this.setState({ errors: {} });
       console.log("adding");
@@ -380,7 +379,7 @@ class UserAddition extends Component {
             >
               {this.props.availableStatuses.map((st) =>
                 st === this.props.currentStatus ? (
-                  <option value={st} selected>
+                  <option value={st} defaultValue={st}>
                     {st}
                   </option>
                 ) : (
