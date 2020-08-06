@@ -9,3 +9,4 @@ export const FROM_EDITING_TO_ADMIN = "FROM_EDITING_TO_ADMIN";
 export const UPDATE_USER = "UPDATE_USER";
 export const SET_DETAIL = "SET_DETAIL";
 export const FROM_DETAIL_TO_ADMIN = "FROM_DETAIL_TO_ADMIN";
+export const LOGOUT = "LOGOUT";

@@ -10,7 +10,14 @@ import {
   UPDATE_USER,
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
+  LOGOUT,
 } from "./types";
+
+export function logout() {
+  return {
+    type: LOGOUT,
+  };
+}
 
 export function fromDetailToAdmin() {
   return {

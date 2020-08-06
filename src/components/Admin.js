@@ -5,6 +5,7 @@ import {
   addUserMode,
   setEditMode,
   setDetail,
+  logout,
 } from "../store/actions";
 import { Link } from "react-router-dom";
 import { Field, formValueSelector, reduxForm } from "redux-form";
@@ -13,6 +14,26 @@ class Admin extends Component {
   render() {
     return (
       <div className="container" align="center">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="#">
+                  Администрация <span className="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+            <span className="navbar-text mr-5">
+              Привет {this.props.currentUser.name.split(" ")[0]}
+            </span>
+            <span className="navbar-text mr-5">Сменить пароль</span>
+            <span className="navbar-text">
+              <Link to="/login/" onClick={this.props.logout}>
+                Выйти
+              </Link>
+            </span>
+          </div>
+        </nav>
         <table className="table table-lg table-striped">
           <thead className="thead-dark">
             <tr>
@@ -53,7 +74,7 @@ class Admin extends Component {
                 </Field>
               </th>
               <th scope="col">
-                <label>Поиск: </label>
+                <label>Поиск:</label>
                 <Field
                   component="input"
                   className="form-control"
@@ -121,6 +142,7 @@ const mapStateToProps = (state) => {
     currentSortOption: state.main.currentSortOption || sortOption,
     sortOptions: state.main.sortOptions,
     search: state.main.search || search,
+    currentUser: state.main.currentUser,
   };
 };
 
@@ -129,6 +151,7 @@ const mapDispatchToProps = (dispatch) => ({
   addUserMode: () => dispatch(addUserMode()),
   setEditMode: (id) => dispatch(setEditMode(id)),
   setDetail: (id) => dispatch(setDetail(id)),
+  logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxFormAdmin);

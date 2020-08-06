@@ -10,6 +10,7 @@ import {
   UPDATE_USER,
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
+  LOGOUT,
 } from "./types";
 import getPhoneNumber from "../utils/getPhoneNumber";
 
@@ -17,6 +18,7 @@ const initialData = {
   users: [],
   currentUsers: [],
   isAuthorized: false,
+  currentUser: {},
   currentUsername: "",
   currentPassword: "",
   currentId: 11,
@@ -71,6 +73,53 @@ export default function (state = initialData, action) {
         ...state,
         users: [...action.payload],
         currentUsers: [...action.payload],
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        currentUser: {},
+        isAuthorized: false,
+        userDetailMode: false,
+        currentSortOption: "ID",
+        search: "",
+        userAdditionMode: false,
+        additionModePhone: "",
+        additionModeZipcode: "",
+        additionModeStreet: "",
+        additionModeCity: "",
+        additionModeEmail: "",
+        additionModeLastName: "",
+        additionModeFirstName: "",
+        additionModePassword: "",
+        additionModeUserName: "",
+        additionModeStatus: "unprioritizedUser",
+        availableStatuses: ["unprioritizedUser"],
+        userEditMode: false,
+        editModeUserId: "",
+        editModePhone: "",
+        editModeZipcode: "",
+        editModeStreet: "",
+        editModeCity: "",
+        editModeEmail: "",
+        editModeLastName: "",
+        editModeFirstName: "",
+        editModePassword: "",
+        editModeUserName: "",
+        editModeUserStatus: "",
+        detailedUser: {
+          username: "",
+          password: "",
+          id: "",
+          name: "",
+          email: "",
+          phone: "",
+          status: "",
+          address: {
+            city: "",
+            zipcode: "",
+            street: "",
+          },
+        },
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
@@ -334,6 +383,7 @@ export default function (state = initialData, action) {
               userAdditionMode: false,
               currentPassword: "",
               currentUsername: "",
+              currentUser: user,
             };
           } else if (user.status === "unprioritizedUser") {
             window.alert("Вы не супер пользователь");
