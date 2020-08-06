@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
-import { fromEditingToAdmin, updateUser, logout } from "../store/actions";
+import { updateUser } from "../store/actions";
 import "../static/EditUser.css";
 import NavBar from "./NavBar";
 import getErrors from "../utils/getErrorsEdit";
+import BackButton from "./typicalButtons/BackButton";
 
 class UserEditing extends Component {
   constructor(props) {
@@ -36,7 +37,6 @@ class UserEditing extends Component {
     }
     if (!areErrors) {
       this.setState({ errors: {} });
-      console.log("updating");
       this.props.updateUser();
       this.props.updateField("userEditing", "username", "");
       this.props.updateField("userEditing", "password", "");
@@ -51,10 +51,6 @@ class UserEditing extends Component {
       ev.preventDefault();
       this.setState({ errors: errors });
     }
-  };
-
-  handleAdminBack = () => {
-    this.props.fromEditingToAdmin();
   };
 
   render() {
@@ -297,12 +293,7 @@ class UserEditing extends Component {
         >
           Закончить
         </button>
-        <button
-          onClick={this.handleAdminBack}
-          className="btn btn-info btn-lg m-2"
-        >
-          Назад
-        </button>
+        <BackButton />
       </div>
     );
   }
@@ -338,16 +329,13 @@ const mapStateToProps = (state) => {
     password: state.main.editModePassword || password,
     availableStatuses: state.main.availableStatuses,
     currentStatus: state.main.editModeStatus || status,
-    currentUser: state.main.currentUser,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   updateField: (form, field, newValue) =>
     dispatch(change(form, field, newValue)),
-  fromEditingToAdmin: () => dispatch(fromEditingToAdmin()),
   updateUser: () => dispatch(updateUser()),
-  logout: () => dispatch(logout()),
 });
 
 export default connect(

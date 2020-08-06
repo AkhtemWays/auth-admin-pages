@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
-import { addUser, fromAdditionToAdmin } from "../store/actions";
+import { addUser } from "../store/actions";
 import "../static/UserAddition.css";
 import getErrors from "../utils/getErrorsUserAddition";
 import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
+import BackButton from "./typicalButtons/BackButton";
 
 class UserAddition extends Component {
   constructor(props) {
@@ -280,18 +282,15 @@ class UserAddition extends Component {
             </Field>
           </div>
           <hr />
-          <button
-            onClick={this.handleSubmit}
-            className="btn btn-primary btn-lg m-2"
-          >
-            Добавить
-          </button>
-          <button
-            onClick={this.props.fromAdditionToAdmin}
-            className="btn btn-info btn-lg m-2"
-          >
-            Назад
-          </button>
+          <Link to="/admin/">
+            <button
+              onClick={this.handleSubmit}
+              className="btn btn-primary btn-lg m-2"
+            >
+              Добавить
+            </button>
+          </Link>
+          <BackButton />
         </div>
       </div>
     );
@@ -328,7 +327,6 @@ const mapStateToProps = (state) => {
     password: state.main.additionModePassword || password,
     availableStatuses: state.main.availableStatuses,
     currentStatus: state.main.additionModeStatus || status,
-    currentUser: state.main.currentUser,
   };
 };
 
@@ -336,7 +334,6 @@ const mapDispatchToProps = (dispatch) => ({
   addUser: () => dispatch(addUser()),
   updateField: (form, field, newValue) =>
     dispatch(change(form, field, newValue)),
-  fromAdditionToAdmin: () => dispatch(fromAdditionToAdmin()),
 });
 
 export default connect(

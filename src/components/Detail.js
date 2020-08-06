@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fromDetailToAdmin } from "../store/actions";
 import NavBar from "./NavBar";
+import BackButton from "./typicalButtons/BackButton";
 
 class Detail extends Component {
   render() {
@@ -14,12 +14,7 @@ class Detail extends Component {
               <th scope="col">Аттрибут</th>
               <th scope="col">Значение</th>
               <th scope="col">
-                <button
-                  className="btn btn-info btn-sm"
-                  onClick={this.props.fromDetailToAdmin}
-                >
-                  Назад
-                </button>
+                <BackButton />
               </th>
             </tr>
           </thead>
@@ -87,8 +82,4 @@ const mapStateToProps = (state) => ({
   currentUser: state.main.currentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fromDetailToAdmin: () => dispatch(fromDetailToAdmin()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps, null)(Detail);

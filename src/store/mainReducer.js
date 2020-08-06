@@ -4,14 +4,10 @@ import {
   DELETE_USER,
   ADD_USER_MODE,
   ADD_USER,
-  FROM_ADDITION_TO_ADMIN,
   SET_EDIT_MODE,
-  FROM_EDITING_TO_ADMIN,
   UPDATE_USER,
   SET_DETAIL,
-  FROM_DETAIL_TO_ADMIN,
   LOGOUT,
-  FROM_PSCHANGE_TO_ADMIN,
   SET_PSCHANGE_MODE,
   CHANGE_USER_PASSWORD,
   BACK_TO_ADMIN,
@@ -89,17 +85,6 @@ export default function (state = initialData, action) {
         userDetailMode: false,
         userEditMode: false,
         userAdditionMode: false,
-      };
-    case FROM_PSCHANGE_TO_ADMIN:
-      return {
-        ...state,
-        passwordFocus: "",
-        passwordFocusAgain: "",
-        passwordChangeMode: false,
-        userDetailMode: false,
-        isAuthorized: true,
-        userAdditionMode: false,
-        userEditMode: false,
       };
     case LOGOUT:
       return {
@@ -524,23 +509,6 @@ export default function (state = initialData, action) {
         users: [...state.users, newUser],
         currentUsers: [...state.currentUsers, newUser],
       };
-    case FROM_ADDITION_TO_ADMIN:
-      return {
-        ...state,
-        userAdditionMode: false,
-        userEditMode: false,
-        userDetailMode: false,
-        passwordChangeMode: false,
-        additionModePhone: "",
-        additionModeZipcode: "",
-        additionModeStreet: "",
-        additionModeCity: "",
-        additionModeEmail: "",
-        additionModeLastName: "",
-        additionModeFirstName: "",
-        additionModePassword: "",
-        additionModeUserName: "",
-      };
     case SET_EDIT_MODE:
       const editableUser = state.users.find(
         (user) => user.id === action.payload
@@ -562,25 +530,6 @@ export default function (state = initialData, action) {
         editModePassword: editableUser.password,
         editModeUserName: editableUser.username,
         editModeUserStatus: editableUser.status,
-      };
-    case FROM_EDITING_TO_ADMIN:
-      return {
-        ...state,
-        isAuthorized: true,
-        userAdditionMode: false,
-        userEditMode: false,
-        passwordChangeMode: false,
-        editModeUserId: "",
-        editModePhone: "",
-        editModeZipcode: "",
-        editModeStreet: "",
-        editModeCity: "",
-        editModeEmail: "",
-        editModeLastName: "",
-        editModeFirstName: "",
-        editModePassword: "",
-        editModeUserName: "",
-        editModeUserStatus: "",
       };
     case UPDATE_USER:
       const modifiedFirstNameEdit =
@@ -646,29 +595,6 @@ export default function (state = initialData, action) {
         userDetailMode: true,
         passwordChangeMode: false,
         detailedUser: chosenUser,
-      };
-    case FROM_DETAIL_TO_ADMIN:
-      return {
-        ...state,
-        userAdditionMode: false,
-        isAuthorized: true,
-        userEditMode: false,
-        userDetailMode: false,
-        passwordChangeMode: false,
-        detailedUser: {
-          username: "",
-          password: "",
-          id: "",
-          name: "",
-          email: "",
-          phone: "",
-          status: "",
-          address: {
-            city: "",
-            zipcode: "",
-            street: "",
-          },
-        },
       };
     case CHANGE_USER_PASSWORD:
       const updatedPassword = state.passwordFocus;

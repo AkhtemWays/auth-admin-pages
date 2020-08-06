@@ -4,15 +4,11 @@ import {
   DELETE_USER,
   ADD_USER,
   ADD_USER_MODE,
-  FROM_ADDITION_TO_ADMIN,
   SET_EDIT_MODE,
-  FROM_EDITING_TO_ADMIN,
   UPDATE_USER,
   SET_DETAIL,
-  FROM_DETAIL_TO_ADMIN,
   LOGOUT,
   SET_PSCHANGE_MODE,
-  FROM_PSCHANGE_TO_ADMIN,
   CHANGE_USER_PASSWORD,
   BACK_TO_ADMIN,
 } from "./types";
@@ -41,18 +37,6 @@ export function setPSChangeMode() {
   };
 }
 
-export function fromPSChangeToAdmin() {
-  return {
-    type: FROM_PSCHANGE_TO_ADMIN,
-  };
-}
-
-export function fromDetailToAdmin() {
-  return {
-    type: FROM_DETAIL_TO_ADMIN,
-  };
-}
-
 export function setDetail(id) {
   return {
     type: SET_DETAIL,
@@ -69,12 +53,6 @@ export function setEditMode(id) {
 export function updateUser() {
   return {
     type: UPDATE_USER,
-  };
-}
-
-export function fromEditingToAdmin() {
-  return {
-    type: FROM_EDITING_TO_ADMIN,
   };
 }
 
@@ -145,11 +123,5 @@ export function addUser() {
 export function addUserMode() {
   return {
     type: ADD_USER_MODE,
-  };
-}
-
-export function fromAdditionToAdmin() {
-  return {
-    type: FROM_ADDITION_TO_ADMIN,
   };
 }

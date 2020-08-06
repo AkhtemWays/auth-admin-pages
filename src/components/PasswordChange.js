@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { Field, reduxForm, formValueSelector, change } from "redux-form";
 import { connect } from "react-redux";
 import "../static/PasswordChange.css";
-import {
-  fromPSChangeToAdmin,
-  changeUserPassword,
-  logout,
-} from "../store/actions";
+import { changeUserPassword } from "../store/actions";
 import { Link } from "react-router-dom";
 import getErrors from "../utils/getErrorsPasswordChange";
+import BackButton from "./typicalButtons/BackButton";
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -96,14 +93,7 @@ class PasswordChange extends Component {
                 Изменить
               </button>
             </Link>
-            <Link to="/admin/">
-              <button
-                onClick={this.props.fromPSChangeToAdmin}
-                className="btn btn-info btn-lg m-2"
-              >
-                Назад
-              </button>
-            </Link>
+            <BackButton />
           </div>
         </div>
       </>
@@ -129,9 +119,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   updateField: (form, field, newValue) =>
     dispatch(change(form, field, newValue)),
-  fromPSChangeToAdmin: () => dispatch(fromPSChangeToAdmin()),
   changeUserPassword: () => dispatch(changeUserPassword()),
-  logout: () => dispatch(logout()),
 });
 
 export default connect(
