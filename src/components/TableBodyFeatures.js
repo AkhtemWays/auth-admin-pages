@@ -14,12 +14,8 @@ class TableBodyFeatures extends Component {
             <td>{user.name.split(" ")[0]}</td>
             <td>{user.name.split(" ")[1]}</td>
             <td>{user.email}</td>
-            <td>
-              <DeleteUserButton user={user} />
-            </td>
-            <td>
-              <UserEditButton user={user} />
-            </td>
+            <td>{this.props.isSuper && <DeleteUserButton user={user} />}</td>
+            <td>{this.props.isSuper && <UserEditButton user={user} />}</td>
             <td>
               <UserDetailButton user={user} />
             </td>
@@ -32,6 +28,9 @@ class TableBodyFeatures extends Component {
 
 const mapStateToProps = (state) => ({
   currentUsers: state.main.currentUsers,
+  isAuthorized: state.main.isAuthorized,
+  isSuper: state.main.isSuper,
+  isObserver: state.main.isObserver,
 });
 
 export default connect(mapStateToProps, null)(TableBodyFeatures);

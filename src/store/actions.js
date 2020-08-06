@@ -12,6 +12,8 @@ import {
   CHANGE_USER_PASSWORD,
   BACK_TO_ADMIN,
 } from "./types";
+import { superUser } from "../components/usersConfig/superUser";
+import { observerUser } from "../components/usersConfig/observerUser";
 
 export function changeUserPassword() {
   return {
@@ -61,20 +63,6 @@ export function fetchData() {
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
     const data = await response.json();
     const normalizedData = [];
-    const superUser = {
-      username: "AkhtemWays",
-      password: "1234567",
-      id: 0,
-      name: "Akhtem Ways",
-      email: "ahty.study@bk.ru",
-      phone: "+7 (900) 475-18-16",
-      status: "superUser",
-      address: {
-        city: "Moscow",
-        zipcode: "106810",
-        street: "Kaluzhskaya street",
-      },
-    };
 
     normalizedData.push(superUser);
     for (let user of data) {
@@ -94,6 +82,7 @@ export function fetchData() {
       };
       normalizedData.push(normalizedUser);
     }
+    normalizedData.push(observerUser);
     dispatch({
       type: FETCH_DATA,
       payload: normalizedData,

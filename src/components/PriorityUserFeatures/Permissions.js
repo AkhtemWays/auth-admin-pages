@@ -10,10 +10,10 @@ class Permissions extends Component {
           !this.props.userAdditionMode &&
           !this.props.userEditMode &&
           !this.props.userDetailMode && <Redirect to="/admin/" />}
-        {this.props.isAuthorized && this.props.userAdditionMode && (
-          <Redirect to="/admin/add/" strict exact />
-        )}
-        {this.props.userEditMode && this.props.isAuthorized && (
+        {this.props.isAuthorized &&
+          this.props.userAdditionMode &&
+          this.props.isSuper && <Redirect to="/admin/add/" strict exact />}
+        {this.props.userEditMode && this.props.isSuper && (
           <Redirect to="/admin/edit/:userId/" strict exact />
         )}
         {this.props.userDetailMode && this.props.isAuthorized && (
@@ -33,6 +33,8 @@ const mapStateToProps = (state) => ({
   userEditMode: state.main.userEditMode,
   userDetailMode: state.main.userDetailMode,
   passwordChangeMode: state.main.passwordChangeMode,
+  isSuper: state.main.isSuper,
+  isObserver: state.main.isObserver,
 });
 
 export default connect(mapStateToProps, null)(Permissions);

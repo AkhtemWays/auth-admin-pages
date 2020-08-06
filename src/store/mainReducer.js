@@ -18,10 +18,12 @@ const initialData = {
   users: [],
   currentUsers: [],
   isAuthorized: false,
+  isSuper: false,
+  isObserver: false,
   currentUser: {},
   currentUsername: "",
   currentPassword: "",
-  currentId: 11,
+  currentId: 12,
   userAdditionMode: false,
   additionModePhone: "",
   additionModeZipcode: "",
@@ -33,7 +35,7 @@ const initialData = {
   additionModePassword: "",
   additionModeUserName: "",
   additionModeStatus: "unprioritizedUser",
-  availableStatuses: ["unprioritizedUser"],
+  availableStatuses: ["unprioritizedUser", "observerUser"],
   userEditMode: false,
   editModeUserId: "",
   editModePhone: "",
@@ -91,6 +93,8 @@ export default function (state = initialData, action) {
         ...state,
         currentUser: {},
         isAuthorized: false,
+        isSuper: false,
+        isObserver: false,
         userDetailMode: false,
         passwordChangeMode: false,
         currentSortOption: "ID",
@@ -106,7 +110,6 @@ export default function (state = initialData, action) {
         additionModePassword: "",
         additionModeUserName: "",
         additionModeStatus: "unprioritizedUser",
-        availableStatuses: ["unprioritizedUser"],
         userEditMode: false,
         editModeUserId: "",
         editModePhone: "",
@@ -406,6 +409,8 @@ export default function (state = initialData, action) {
             return {
               ...state,
               isAuthorized: true,
+              isSuper: true,
+              isObserver: false,
               userAdditionMode: false,
               passwordChangeMode: false,
               userEditMode: false,
@@ -422,6 +427,19 @@ export default function (state = initialData, action) {
               passwordChangeMode: false,
               currentPassword: "",
               currentUsername: "",
+            };
+          } else if (user.status === "observerUser") {
+            return {
+              ...state,
+              isAuthorized: true,
+              isObserver: true,
+              isSuper: false,
+              userAdditionMode: false,
+              passwordChangeMode: false,
+              userEditMode: false,
+              currentPassword: "",
+              currentUsername: "",
+              currentUser: user,
             };
           }
           return {
