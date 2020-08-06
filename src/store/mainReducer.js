@@ -84,6 +84,10 @@ export default function (state = initialData, action) {
       return {
         ...state,
         passwordChangeMode: true,
+        isAuthorized: true,
+        userDetailMode: false,
+        userEditMode: false,
+        userAdditionMode: false,
       };
     case FROM_PSCHANGE_TO_ADMIN:
       return {
@@ -91,6 +95,10 @@ export default function (state = initialData, action) {
         passwordFocus: "",
         passwordFocusAgain: "",
         passwordChangeMode: false,
+        userDetailMode: false,
+        isAuthorized: true,
+        userAdditionMode: false,
+        userEditMode: false,
       };
     case LOGOUT:
       return {

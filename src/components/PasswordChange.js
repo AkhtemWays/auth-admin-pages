@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Field, reduxForm, formValueSelector, change } from "redux-form";
 import { connect } from "react-redux";
 import "../static/PasswordChange.css";
-import { fromPSChangeToAdmin, changeUserPassword } from "../store/actions";
+import {
+  fromPSChangeToAdmin,
+  changeUserPassword,
+  logout,
+} from "../store/actions";
 import { Link } from "react-router-dom";
 
 class PasswordChange extends Component {
@@ -61,6 +65,26 @@ class PasswordChange extends Component {
   render() {
     return (
       <div align="center" className="psChange">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link>
+                  Администрация <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+            </ul>
+            <span className="navbar-text mr-5">
+              Привет {this.props.currentUser.name.split(" ")[0]}
+            </span>
+            <span className="navbar-text mr-5">Сменить пароль</span>
+            <span className="navbar-text">
+              <Link to="/login/" onClick={this.props.logout}>
+                Выйти
+              </Link>
+            </span>
+          </div>
+        </nav>
         {!this.state.errors.same && !this.state.initial && (
           <div>
             <h6 className="text-danger">Пароли не совпадают</h6>
@@ -139,6 +163,7 @@ const mapStateToProps = (state) => {
   return {
     password: state.main.passwordFocus || password,
     passwordAgain: state.main.passwordFocusAgain || passwordAgain,
+    currentUser: state.main.currentUser,
   };
 };
 
@@ -147,6 +172,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(change(form, field, newValue)),
   fromPSChangeToAdmin: () => dispatch(fromPSChangeToAdmin()),
   changeUserPassword: () => dispatch(changeUserPassword()),
+  logout: () => dispatch(logout()),
 });
 
 export default connect(

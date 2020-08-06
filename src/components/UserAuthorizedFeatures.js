@@ -32,7 +32,7 @@ class UserAuthorizedFeatures extends Component {
         />
         <Route
           component={PasswordChange}
-          path="/admin/passwordchange/:userId/"
+          path="/admin/passwordchange/"
           strict
           exact={true}
         />
@@ -50,7 +50,7 @@ class UserAuthorizedFeatures extends Component {
           <Redirect to="/admin/detail/:userId/" strict exact />
         )}
         {this.props.passwordChangeMode && this.props.isAuthorized && (
-          <Redirect to="/admin/passwordchange/:userId/" strict exact />
+          <Redirect to="/admin/passwordchange/" strict exact />
         )}
       </>
     );

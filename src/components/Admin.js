@@ -8,7 +8,7 @@ import {
   logout,
   setPSChangeMode,
 } from "../store/actions";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Field, formValueSelector, reduxForm } from "redux-form";
 
 class Admin extends Component {
@@ -28,11 +28,13 @@ class Admin extends Component {
               Привет {this.props.currentUser.name.split(" ")[0]}
             </span>
             <span className="navbar-text mr-5">
-              <Link
-                to="/admin/changepassword/:userId/"
-                onClick={this.props.setPSChangeMode}
-              >
-                Сменить пароль
+              <Link to="/admin/passwordchange/">
+                <button
+                  onClick={this.props.setPSChangeMode}
+                  className="display-none border-0"
+                >
+                  Сменить пароль
+                </button>
               </Link>
             </span>
             <span className="navbar-text">
