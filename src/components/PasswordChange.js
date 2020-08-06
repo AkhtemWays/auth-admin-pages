@@ -11,18 +11,61 @@ class PasswordChange extends Component {
 
     this.state = {
       errors: {},
+      initial: true,
     };
   }
 
-  getErrors = () => {};
+  getErrors = () => {
+    const errors = {
+      password: [],
+      passwordAgain: [],
+      same: true,
+    };
+    if (this.props.password ? this.props.password.length < 7 : false) {
+      errors.password.push("Пароль не может быть короче 7 символов");
+    }
+    if (!this.props.password) {
+      errors.password.push("Поле не может быть пустым");
+    }
+    if (
+      this.props.passwordAgain ? this.props.passwordAgain.length < 7 : false
+    ) {
+      errors.passwordAgain.push("Пароль не может быть короче 7 символов");
+    }
+    if (!this.props.passwordAgain) {
+      errors.passwordAgain.push("Поле не может быть пустым");
+    }
+    if (this.props.passwordAgain !== this.props.password) {
+      errors.same = false;
+    }
+    return errors;
+  };
 
   handleSubmit = (ev) => {
-    this.props.changeUserPassword();
+    const errors = this.getErrors();
+    if (
+      !errors.password.length &&
+      !errors.passwordAgain.length &&
+      errors.same
+    ) {
+      this.setState({ errors: {}, initial: true });
+      this.props.changeUserPassword();
+      this.props.updateField("passwordChange", "password", "");
+      this.props.updateField("passwordChange", "passwordAgain", "");
+    } else {
+      ev.preventDefault();
+      this.setState({ errors: errors, initial: false });
+    }
   };
 
   render() {
     return (
       <div align="center" className="psChange">
+        {!this.state.errors.same && !this.state.initial && (
+          <div>
+            <h6 className="text-danger">Пароли не совпадают</h6>
+          </div>
+        )}
         <div>
           <label className="m-2">Новый пароль:</label>
           <br />
