@@ -14,6 +14,7 @@ import {
   SET_PSCHANGE_MODE,
   FROM_PSCHANGE_TO_ADMIN,
   CHANGE_USER_PASSWORD,
+  BACK_TO_ADMIN,
 } from "./types";
 
 export function changeUserPassword() {
@@ -25,6 +26,12 @@ export function changeUserPassword() {
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function backToAdmin() {
+  return {
+    type: BACK_TO_ADMIN,
   };
 }
 

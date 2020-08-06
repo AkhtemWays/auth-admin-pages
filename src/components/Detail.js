@@ -1,32 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fromDetailToAdmin, logout } from "../store/actions";
-import { Link } from "react-router-dom";
+import { fromDetailToAdmin } from "../store/actions";
+import NavBar from "./NavBar";
 
 class Detail extends Component {
   render() {
     return (
       <div className="container" align="center">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Администрация <span className="sr-only">(current)</span>
-                </a>
-              </li>
-            </ul>
-            <span className="navbar-text mr-5">
-              Привет {this.props.currentUser.name.split(" ")[0]}
-            </span>
-            <span className="navbar-text mr-5">Сменить пароль</span>
-            <span className="navbar-text">
-              <Link to="/login/" onClick={this.props.logout}>
-                Выйти
-              </Link>
-            </span>
-          </div>
-        </nav>
+        <NavBar />
         <table className="table table-lg table-striped">
           <thead className="thead-dark">
             <tr>
@@ -108,7 +89,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fromDetailToAdmin: () => dispatch(fromDetailToAdmin()),
-  logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

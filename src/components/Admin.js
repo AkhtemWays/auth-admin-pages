@@ -8,42 +8,15 @@ import {
   logout,
   setPSChangeMode,
 } from "../store/actions";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Field, formValueSelector, reduxForm } from "redux-form";
+import NavBar from "./NavBar";
 
 class Admin extends Component {
   render() {
     return (
       <div className="container" align="center">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Администрация <span className="sr-only">(current)</span>
-                </a>
-              </li>
-            </ul>
-            <span className="navbar-text mr-5">
-              Привет {this.props.currentUser.name.split(" ")[0]}
-            </span>
-            <span className="navbar-text mr-5">
-              <Link to="/admin/passwordchange/">
-                <button
-                  onClick={this.props.setPSChangeMode}
-                  className="display-none border-0"
-                >
-                  Сменить пароль
-                </button>
-              </Link>
-            </span>
-            <span className="navbar-text">
-              <Link to="/login/" onClick={this.props.logout}>
-                Выйти
-              </Link>
-            </span>
-          </div>
-        </nav>
+        <NavBar />
         <table className="table table-lg table-striped">
           <thead className="thead-dark">
             <tr>

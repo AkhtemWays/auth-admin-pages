@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { formValueSelector, reduxForm, Field, change } from "redux-form";
 import { connect } from "react-redux";
-import { addUser, fromAdditionToAdmin, logout } from "../store/actions";
+import { addUser, fromAdditionToAdmin } from "../store/actions";
 import "../static/UserAddition.css";
-import { Link } from "react-router-dom";
+
+import NavBar from "./NavBar";
 
 class UserAddition extends Component {
   constructor(props) {
@@ -166,26 +167,7 @@ class UserAddition extends Component {
   render() {
     return (
       <div align="center" className="usr-add">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Администрация <span className="sr-only">(current)</span>
-                </a>
-              </li>
-            </ul>
-            <span className="navbar-text mr-5">
-              Привет {this.props.currentUser.name.split(" ")[0]}
-            </span>
-            <span className="navbar-text mr-5">Сменить пароль</span>
-            <span className="navbar-text">
-              <Link to="/login/" onClick={this.props.logout}>
-                Выйти
-              </Link>
-            </span>
-          </div>
-        </nav>
+        <NavBar />
         <div>
           <div>
             <label>ID</label>
@@ -467,7 +449,6 @@ const mapDispatchToProps = (dispatch) => ({
   updateField: (form, field, newValue) =>
     dispatch(change(form, field, newValue)),
   fromAdditionToAdmin: () => dispatch(fromAdditionToAdmin()),
-  logout: () => dispatch(logout()),
 });
 
 export default connect(

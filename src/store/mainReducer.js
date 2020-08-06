@@ -14,6 +14,7 @@ import {
   FROM_PSCHANGE_TO_ADMIN,
   SET_PSCHANGE_MODE,
   CHANGE_USER_PASSWORD,
+  BACK_TO_ADMIN,
 } from "./types";
 import getPhoneNumber from "../utils/getPhoneNumber";
 
@@ -106,6 +107,7 @@ export default function (state = initialData, action) {
         currentUser: {},
         isAuthorized: false,
         userDetailMode: false,
+        passwordChangeMode: false,
         currentSortOption: "ID",
         search: "",
         userAdditionMode: false,
@@ -420,6 +422,8 @@ export default function (state = initialData, action) {
               ...state,
               isAuthorized: true,
               userAdditionMode: false,
+              passwordChangeMode: false,
+              userEditMode: false,
               currentPassword: "",
               currentUsername: "",
               currentUser: user,
@@ -430,6 +434,7 @@ export default function (state = initialData, action) {
               ...state,
               isAuthorized: false,
               userAdditionMode: false,
+              passwordChangeMode: false,
               currentPassword: "",
               currentUsername: "",
             };
@@ -476,6 +481,8 @@ export default function (state = initialData, action) {
         ...state,
         userAdditionMode: true,
         isAuthorized: true,
+        passwordChangeMode: false,
+        userEditMode: false,
       };
 
     case ADD_USER:
@@ -504,6 +511,7 @@ export default function (state = initialData, action) {
         ...state,
         userAdditionMode: false,
         currentId: state.currentId + 1,
+        passwordChangeMode: false,
         additionModePhone: "",
         additionModeZipcode: "",
         additionModeStreet: "",
@@ -542,6 +550,7 @@ export default function (state = initialData, action) {
         userEditMode: true,
         isAuthorized: true,
         userAdditionMode: false,
+        passwordChangeMode: false,
         editModeUserId: editableUser.id,
         editModePhone: editableUser.phone,
         editModeZipcode: editableUser.address.zipcode,
@@ -560,6 +569,7 @@ export default function (state = initialData, action) {
         isAuthorized: true,
         userAdditionMode: false,
         userEditMode: false,
+        passwordChangeMode: false,
         editModeUserId: "",
         editModePhone: "",
         editModeZipcode: "",
@@ -611,6 +621,7 @@ export default function (state = initialData, action) {
         isAuthorized: true,
         userAdditionMode: false,
         userEditMode: false,
+        passwordChangeMode: false,
         editModeUserId: "",
         editModePhone: "",
         editModeZipcode: "",
@@ -633,6 +644,7 @@ export default function (state = initialData, action) {
         isAuthorized: true,
         userEditMode: false,
         userDetailMode: true,
+        passwordChangeMode: false,
         detailedUser: chosenUser,
       };
     case FROM_DETAIL_TO_ADMIN:
@@ -642,6 +654,7 @@ export default function (state = initialData, action) {
         isAuthorized: true,
         userEditMode: false,
         userDetailMode: false,
+        passwordChangeMode: false,
         detailedUser: {
           username: "",
           password: "",
@@ -693,6 +706,53 @@ export default function (state = initialData, action) {
         passwordFocusAgain: "",
         passwordChangeMode: false,
         isAuthorized: true,
+      };
+    case BACK_TO_ADMIN:
+      return {
+        ...state,
+        userAdditionMode: false,
+        additionModePhone: "",
+        additionModeZipcode: "",
+        additionModeStreet: "",
+        additionModeCity: "",
+        additionModeEmail: "",
+        additionModeLastName: "",
+        additionModeFirstName: "",
+        additionModePassword: "",
+        additionModeUserName: "",
+        additionModeStatus: "unprioritizedUser",
+        availableStatuses: ["unprioritizedUser"],
+        userEditMode: false,
+        editModeUserId: "",
+        editModePhone: "",
+        editModeZipcode: "",
+        editModeStreet: "",
+        editModeCity: "",
+        editModeEmail: "",
+        editModeLastName: "",
+        editModeFirstName: "",
+        editModePassword: "",
+        editModeUserName: "",
+        editModeUserStatus: "",
+        userDetailMode: false,
+        detailedUser: {
+          username: "",
+          password: "",
+          id: "",
+          name: "",
+          email: "",
+          phone: "",
+          status: "",
+          address: {
+            city: "",
+            zipcode: "",
+            street: "",
+          },
+        },
+        sortOptions: ["ID", "Имя", "Фамилия"],
+        passwordFocus: "",
+        passwordFocusAgain: "",
+        passwordChangeMode: false,
       };
 
     default:

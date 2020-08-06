@@ -64,90 +64,74 @@ class PasswordChange extends Component {
 
   render() {
     return (
-      <div align="center" className="psChange">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link>
-                  Администрация <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-            </ul>
-            <span className="navbar-text mr-5">
-              Привет {this.props.currentUser.name.split(" ")[0]}
-            </span>
-            <span className="navbar-text mr-5">Сменить пароль</span>
-            <span className="navbar-text">
-              <Link to="/login/" onClick={this.props.logout}>
-                Выйти
-              </Link>
-            </span>
+      <>
+        <div align="center" className="psChange">
+          {!this.state.errors.same && !this.state.initial && (
+            <div>
+              <h6 className="text-danger">Пароли не совпадают</h6>
+            </div>
+          )}
+          <div className="mt-4">
+            <div>
+              <label className="m-2">Новый пароль:</label>
+              <br />
+              <Field
+                component="input"
+                type="password"
+                minLength="7"
+                name="password"
+                value={this.props.password}
+                placeholder="Password"
+                className="m-2 form-control"
+                required
+              />
+              {this.state.errors.password &&
+                this.state.errors.password.map((error) => (
+                  <div className="text-sm-left ml-2">
+                    <p className="small text-danger">{error}</p>
+                  </div>
+                ))}
+            </div>
+            <hr />
+            <div>
+              <label className="m-2">Подтвердите пароль:</label>
+              <br />
+              <Field
+                component="input"
+                type="password"
+                minLength="7"
+                name="passwordAgain"
+                value={this.props.passwordAgain}
+                placeholder="Password again"
+                className="m-2 form-control"
+                required
+              />
+              {this.state.errors.passwordAgain &&
+                this.state.errors.passwordAgain.map((error) => (
+                  <div className="text-sm-left ml-2">
+                    <p className="small text-danger">{error}</p>
+                  </div>
+                ))}
+            </div>
+            <Link to="/admin/">
+              <button
+                onClick={this.handleSubmit}
+                className="btn btn-primary btn-lg m-2"
+              >
+                Изменить
+              </button>
+            </Link>
+            <Link to="/admin/">
+              <button
+                onClick={this.props.fromPSChangeToAdmin}
+                className="btn btn-info btn-lg m-2"
+              >
+                Назад
+              </button>
+            </Link>
           </div>
-        </nav>
-        {!this.state.errors.same && !this.state.initial && (
-          <div>
-            <h6 className="text-danger">Пароли не совпадают</h6>
-          </div>
-        )}
-        <div>
-          <label className="m-2">Новый пароль:</label>
-          <br />
-          <Field
-            component="input"
-            type="password"
-            minLength="7"
-            name="password"
-            value={this.props.password}
-            placeholder="Password"
-            className="m-2 form-control"
-            required
-          />
-          {this.state.errors.password &&
-            this.state.errors.password.map((error) => (
-              <div className="text-sm-left ml-2">
-                <p className="small text-danger">{error}</p>
-              </div>
-            ))}
         </div>
-        <hr />
-        <div>
-          <label className="m-2">Подтвердите пароль:</label>
-          <br />
-          <Field
-            component="input"
-            type="password"
-            minLength="7"
-            name="passwordAgain"
-            value={this.props.passwordAgain}
-            placeholder="Password again"
-            className="m-2 form-control"
-            required
-          />
-          {this.state.errors.passwordAgain &&
-            this.state.errors.passwordAgain.map((error) => (
-              <div className="text-sm-left ml-2">
-                <p className="small text-danger">{error}</p>
-              </div>
-            ))}
-        </div>
-        <Link to="/admin/">
-          <button
-            onClick={this.handleSubmit}
-            className="btn btn-primary btn-lg m-2"
-          >
-            Изменить
-          </button>
-        </Link>
-        <Link to="/admin/">
-          <button
-            onClick={this.props.fromPSChangeToAdmin}
-            className="btn btn-info btn-lg m-2"
-          >
-            Назад
-          </button>
-        </Link>
-      </div>
+      </>
     );
   }
 }
