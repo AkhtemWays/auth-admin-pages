@@ -18,7 +18,10 @@ class Admin extends Component {
               <th scope="col">Имя</th>
               <th scope="col">Фамилия</th>
               <th scope="col">Почта</th>
-              <th scope="col">{this.props.isSuper && <AddUserButton />}</th>
+              <th scope="col">
+                {(this.props.isSuper && <AddUserButton />) ||
+                  (this.props.isSeniorManager && <AddUserButton />)}
+              </th>
               <th scope="col">
                 <SortFeature />
               </th>
@@ -38,8 +41,7 @@ class Admin extends Component {
 
 const mapStateToProps = (state) => ({
   isSuper: state.main.isSuper,
-  isObserver: state.main.isObserver,
-  isAuthorized: state.main.isAuthorized,
+  isSeniorManager: state.main.isSeniorManager,
 });
 
 export default connect(mapStateToProps, null)(Admin);

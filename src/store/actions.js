@@ -14,6 +14,8 @@ import {
 } from "./types";
 import { superUser } from "../components/usersConfig/superUser";
 import { observerUser } from "../components/usersConfig/observerUser";
+import { managerUser } from "../components/usersConfig/managerUser";
+import { seniorManagerUser } from "../components/usersConfig/seniorManagerUser";
 
 export function changeUserPassword() {
   return {
@@ -83,6 +85,8 @@ export function fetchData() {
       normalizedData.push(normalizedUser);
     }
     normalizedData.push(observerUser);
+    normalizedData.push(managerUser);
+    normalizedData.push(seniorManagerUser);
     dispatch({
       type: FETCH_DATA,
       payload: normalizedData,

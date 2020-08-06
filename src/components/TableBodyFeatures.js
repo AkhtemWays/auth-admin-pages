@@ -15,9 +15,65 @@ class TableBodyFeatures extends Component {
             <td>{user.name.split(" ")[1]}</td>
             <td>{user.email}</td>
             <td>{this.props.isSuper && <DeleteUserButton user={user} />}</td>
-            <td>{this.props.isSuper && <UserEditButton user={user} />}</td>
             <td>
-              <UserDetailButton user={user} />
+              {(this.props.isSuper && <UserEditButton user={user} />) ||
+                (this.props.isManager &&
+                  user.status === "unprioritizedUser" && (
+                    <UserEditButton user={user} />
+                  )) ||
+                (this.props.isManager && user.status === "observerUser" && (
+                  <UserEditButton user={user} />
+                )) ||
+                (this.props.isSeniorManager &&
+                  user.status === "observerUser" && (
+                    <UserEditButton user={user} />
+                  )) ||
+                (this.props.isSeniorManager &&
+                  user.status === "unprioritizedUser" && (
+                    <UserEditButton user={user} />
+                  )) ||
+                (this.props.isSeniorManager &&
+                  user.status === "managerUser" && (
+                    <UserEditButton user={user} />
+                  ))}
+            </td>
+            <td>
+              {(this.props.isObserver &&
+                user.status === "unprioritizedUser" && (
+                  <UserDetailButton user={user} />
+                )) ||
+                (this.props.isObserver &&
+                  user.id === this.props.currentUser.id && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isManager &&
+                  user.id === this.props.currentUser.id && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isManager && user.status === "observerUser" && (
+                  <UserDetailButton user={user} />
+                )) ||
+                (this.props.isManager &&
+                  user.status === "unprioritizedUser" && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isSuper && <UserDetailButton user={user} />) ||
+                (this.props.isSeniorManager &&
+                  user.status === "managerUser" && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isSeniorManager &&
+                  user.status === "observerUser" && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isSeniorManager &&
+                  user.status === "unprioritizedUser" && (
+                    <UserDetailButton user={user} />
+                  )) ||
+                (this.props.isSeniorManager &&
+                  user.id === this.props.currentUser.id && (
+                    <UserDetailButton user={user} />
+                  ))}
             </td>
           </tr>
         ))}
@@ -28,9 +84,11 @@ class TableBodyFeatures extends Component {
 
 const mapStateToProps = (state) => ({
   currentUsers: state.main.currentUsers,
-  isAuthorized: state.main.isAuthorized,
   isSuper: state.main.isSuper,
+  isManager: state.main.isManager,
+  currentUser: state.main.currentUser,
   isObserver: state.main.isObserver,
+  isSeniorManager: state.main.isSeniorManager,
 });
 
 export default connect(mapStateToProps, null)(TableBodyFeatures);

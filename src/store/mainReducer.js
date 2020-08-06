@@ -20,10 +20,11 @@ const initialData = {
   isAuthorized: false,
   isSuper: false,
   isObserver: false,
+  isManager: false,
   currentUser: {},
   currentUsername: "",
   currentPassword: "",
-  currentId: 12,
+  currentId: 14,
   userAdditionMode: false,
   additionModePhone: "",
   additionModeZipcode: "",
@@ -35,7 +36,12 @@ const initialData = {
   additionModePassword: "",
   additionModeUserName: "",
   additionModeStatus: "unprioritizedUser",
-  availableStatuses: ["unprioritizedUser", "observerUser"],
+  availableStatuses: [
+    "unprioritizedUser",
+    "observerUser",
+    "managerUser",
+    "seniorManagerUser",
+  ],
   userEditMode: false,
   editModeUserId: "",
   editModePhone: "",
@@ -96,6 +102,7 @@ export default function (state = initialData, action) {
         isSuper: false,
         isObserver: false,
         userDetailMode: false,
+        isManager: false,
         passwordChangeMode: false,
         currentSortOption: "ID",
         search: "",
@@ -419,7 +426,7 @@ export default function (state = initialData, action) {
               currentUser: user,
             };
           } else if (user.status === "unprioritizedUser") {
-            window.alert("Вы не супер пользователь");
+            window.alert("Вы не являетесь приоритетным пользователем");
             return {
               ...state,
               isAuthorized: false,
@@ -434,6 +441,37 @@ export default function (state = initialData, action) {
               isAuthorized: true,
               isObserver: true,
               isSuper: false,
+              isSeniorManager: false,
+              userAdditionMode: false,
+              passwordChangeMode: false,
+              userEditMode: false,
+              currentPassword: "",
+              currentUsername: "",
+              currentUser: user,
+            };
+          } else if (user.status === "managerUser") {
+            return {
+              ...state,
+              isAuthorized: true,
+              isObserver: false,
+              isSuper: false,
+              isSeniorManager: false,
+              isManager: true,
+              userAdditionMode: false,
+              passwordChangeMode: false,
+              userEditMode: false,
+              currentPassword: "",
+              currentUsername: "",
+              currentUser: user,
+            };
+          } else if (user.status === "seniorManagerUser") {
+            return {
+              ...state,
+              isAuthorized: true,
+              isObserver: false,
+              isSuper: false,
+              isManager: false,
+              isSeniorManager: true,
               userAdditionMode: false,
               passwordChangeMode: false,
               userEditMode: false,
@@ -442,9 +480,6 @@ export default function (state = initialData, action) {
               currentUser: user,
             };
           }
-          return {
-            ...state,
-          };
         }
       }
       window.alert(

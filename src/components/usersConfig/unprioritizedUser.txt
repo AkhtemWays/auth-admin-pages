@@ -1,0 +1,7 @@
+Description:
+English: Users with status unprioritizedUser do not have access to get to the system, thus any type of user other than that status can make any operation 
+possible to perform on this type of users. There are a few built-in users are being fetched from REST API
+
+
+Russian: Пользователи без приоритета имеют тип статуса unprioritizedUser, у них нет доступа в систему и над ними можно проводить любые типы операций, которые доступны
+другим типам пользователей. Приложение делает запрос к REST API для получения нескольких таких пользователей для просмотра и теста приложения.

@@ -6,6 +6,7 @@ import "../static/EditUser.css";
 import NavBar from "./NavBar";
 import getErrors from "../utils/getErrorsEdit";
 import BackButton from "./typicalButtons/BackButton";
+import EditUpdateSelectFieldLogic from "./importantButtons/EditUpdateSelectFieldLogic";
 
 class UserEditing extends Component {
   constructor(props) {
@@ -270,21 +271,7 @@ class UserEditing extends Component {
         <div>
           <label>Статус пользователя</label>
           <br />
-          <Field
-            component="select"
-            name="status"
-            className="form-control col-5"
-          >
-            {this.props.availableStatuses.map((st) =>
-              st === this.props.currentStatus ? (
-                <option value={st} defaultValue={st}>
-                  {st}
-                </option>
-              ) : (
-                <option value={st}>{st}</option>
-              )
-            )}
-          </Field>
+          <EditUpdateSelectFieldLogic />
         </div>
         <hr />
         <button
@@ -314,7 +301,6 @@ const mapStateToProps = (state) => {
   const street = selector(state, "street");
   const zipcode = selector(state, "zipcode");
   const phone = selector(state, "phone");
-  const status = selector(state, "status");
 
   return {
     currentId: state.main.editModeUserId,
@@ -327,8 +313,6 @@ const mapStateToProps = (state) => {
     username: state.main.editModeUserName || username,
     email: state.main.editModeEmail || email,
     password: state.main.editModePassword || password,
-    availableStatuses: state.main.availableStatuses,
-    currentStatus: state.main.editModeStatus || status,
   };
 };
 

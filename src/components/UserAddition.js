@@ -7,6 +7,7 @@ import getErrors from "../utils/getErrorsUserAddition";
 import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 import BackButton from "./typicalButtons/BackButton";
+import EditUpdateSelectFieldLogic from "./importantButtons/EditUpdateSelectFieldLogic";
 
 class UserAddition extends Component {
   constructor(props) {
@@ -265,21 +266,7 @@ class UserAddition extends Component {
           <div>
             <label>Статус пользователя</label>
             <br />
-            <Field
-              component="select"
-              name="status"
-              className="form-control col-5"
-            >
-              {this.props.availableStatuses.map((st) =>
-                st === this.props.currentStatus ? (
-                  <option value={st} defaultValue={st}>
-                    {st}
-                  </option>
-                ) : (
-                  <option value={st}>{st}</option>
-                )
-              )}
-            </Field>
+            <EditUpdateSelectFieldLogic />
           </div>
           <hr />
           <Link to="/admin/">
@@ -312,7 +299,6 @@ const mapStateToProps = (state) => {
   const street = selector(state, "street");
   const zipcode = selector(state, "zipcode");
   const phone = selector(state, "phone");
-  const status = selector(state, "status");
 
   return {
     currentId: state.main.currentId,
@@ -325,8 +311,6 @@ const mapStateToProps = (state) => {
     username: state.main.additionModeUserName || username,
     email: state.main.additionModeEmail || email,
     password: state.main.additionModePassword || password,
-    availableStatuses: state.main.availableStatuses,
-    currentStatus: state.main.additionModeStatus || status,
   };
 };
 
