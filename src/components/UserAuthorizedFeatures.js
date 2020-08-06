@@ -5,6 +5,7 @@ import EditUser from "./EditUser";
 import Admin from "./Admin";
 import { Redirect, Route } from "react-router-dom";
 import Detail from "./Detail";
+import PasswordChange from "./PasswordChange";
 
 class UserAuthorizedFeatures extends Component {
   render() {
@@ -29,6 +30,12 @@ class UserAuthorizedFeatures extends Component {
           strict
           exact={true}
         />
+        <Route
+          component={PasswordChange}
+          path="/admin/passwordchange/:userId/"
+          strict
+          exact={true}
+        />
         {this.props.isAuthorized &&
           !this.props.userAdditionMode &&
           !this.props.userEditMode &&
@@ -42,6 +49,9 @@ class UserAuthorizedFeatures extends Component {
         {this.props.userDetailMode && this.props.isAuthorized && (
           <Redirect to="/admin/detail/:userId/" strict exact />
         )}
+        {this.props.passwordChangeMode && this.props.isAuthorized && (
+          <Redirect to="/admin/passwordchange/:userId/" strict exact />
+        )}
       </>
     );
   }
@@ -51,6 +61,7 @@ const mapStateToProps = (state) => ({
   userAdditionMode: state.main.userAdditionMode,
   userEditMode: state.main.userEditMode,
   userDetailMode: state.main.userDetailMode,
+  passwordChangeMode: state.main.passwordChangeMode,
 });
 
 export default connect(mapStateToProps, null)(UserAuthorizedFeatures);

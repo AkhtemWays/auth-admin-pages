@@ -11,6 +11,9 @@ import {
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
   LOGOUT,
+  FROM_PSCHANGE_TO_ADMIN,
+  SET_PSCHANGE_MODE,
+  CHANGE_USER_PASSWORD,
 } from "./types";
 import getPhoneNumber from "../utils/getPhoneNumber";
 
@@ -64,6 +67,9 @@ const initialData = {
   sortOptions: ["ID", "Имя", "Фамилия"],
   currentSortOption: "ID",
   search: "",
+  passwordFocus: "",
+  passwordFocusAgain: "",
+  passwordChangeMode: false,
 };
 
 export default function (state = initialData, action) {
@@ -73,6 +79,18 @@ export default function (state = initialData, action) {
         ...state,
         users: [...action.payload],
         currentUsers: [...action.payload],
+      };
+    case SET_PSCHANGE_MODE:
+      return {
+        ...state,
+        passwordChangeMode: true,
+      };
+    case FROM_PSCHANGE_TO_ADMIN:
+      return {
+        ...state,
+        passwordFocus: "",
+        passwordFocusAgain: "",
+        passwordChangeMode: false,
       };
     case LOGOUT:
       return {
@@ -123,6 +141,19 @@ export default function (state = initialData, action) {
       };
     case "@@redux-form/CHANGE":
       switch (action.meta.form) {
+        case "passwordChange":
+          if (action.meta.field === "password") {
+            return {
+              ...state,
+              passwordFocus: action.payload,
+            };
+          } else if (action.meta.field === "passwordAgain") {
+            return {
+              ...state,
+              passwordFocusAgain: action.payload,
+            };
+          }
+          return state;
         case "login":
           if (action.meta.field === "password") {
             return {
@@ -481,6 +512,9 @@ export default function (state = initialData, action) {
       return {
         ...state,
         userAdditionMode: false,
+        userEditMode: false,
+        userDetailMode: false,
+        passwordChangeMode: false,
         additionModePhone: "",
         additionModeZipcode: "",
         additionModeStreet: "",
@@ -614,6 +648,43 @@ export default function (state = initialData, action) {
             street: "",
           },
         },
+      };
+    case CHANGE_USER_PASSWORD:
+      const updatedPassword = state.passwordFocus;
+      const globalIdx = state.users.findIndex(
+        (user) => user.id === state.currentUser.id
+      );
+      const tableIdx = state.currentUsers.findIndex(
+        (user) => user.id === state.currentUser.id
+      );
+      const globalUser = [...state.users].find(
+        (user) => user.id === state.currentUser.id
+      );
+      const newGlobalUser = {
+        ...globalUser,
+        password: updatedPassword,
+      };
+      const newTableUser = {
+        ...globalUser,
+        password: updatedPassword,
+      };
+      const newUsersArray = [...state.users];
+      const newTableArray = [...state.currentUsers];
+      newUsersArray[globalIdx] = newGlobalUser;
+      newTableArray[tableIdx] = newTableUser;
+
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          password: updatedPassword,
+        },
+        users: newUsersArray,
+        currentUsers: newTableArray,
+        passwordFocus: "",
+        passwordFocusAgain: "",
+        passwordChangeMode: false,
+        isAuthorized: true,
       };
 
     default:

@@ -6,6 +6,7 @@ import {
   setEditMode,
   setDetail,
   logout,
+  setPSChangeMode,
 } from "../store/actions";
 import { Link } from "react-router-dom";
 import { Field, formValueSelector, reduxForm } from "redux-form";
@@ -26,7 +27,14 @@ class Admin extends Component {
             <span className="navbar-text mr-5">
               Привет {this.props.currentUser.name.split(" ")[0]}
             </span>
-            <span className="navbar-text mr-5">Сменить пароль</span>
+            <span className="navbar-text mr-5">
+              <Link
+                to="/admin/changepassword/:userId/"
+                onClick={this.props.setPSChangeMode}
+              >
+                Сменить пароль
+              </Link>
+            </span>
             <span className="navbar-text">
               <Link to="/login/" onClick={this.props.logout}>
                 Выйти
@@ -152,6 +160,7 @@ const mapDispatchToProps = (dispatch) => ({
   setEditMode: (id) => dispatch(setEditMode(id)),
   setDetail: (id) => dispatch(setDetail(id)),
   logout: () => dispatch(logout()),
+  setPSChangeMode: () => dispatch(setPSChangeMode()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxFormAdmin);

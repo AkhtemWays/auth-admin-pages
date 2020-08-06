@@ -1,4 +1,1 @@
-function hasNumber(myString) {
-  return /^\d+$/.test(myString);
-}
-console.log(hasNumber("21-4"));
+const string = '12345';

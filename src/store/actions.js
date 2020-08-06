@@ -11,11 +11,32 @@ import {
   SET_DETAIL,
   FROM_DETAIL_TO_ADMIN,
   LOGOUT,
+  SET_PSCHANGE_MODE,
+  FROM_PSCHANGE_TO_ADMIN,
+  CHANGE_USER_PASSWORD,
 } from "./types";
+
+export function changeUserPassword() {
+  return {
+    type: CHANGE_USER_PASSWORD,
+  };
+}
 
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function setPSChangeMode() {
+  return {
+    type: SET_PSCHANGE_MODE,
+  };
+}
+
+export function fromPSChangeToAdmin() {
+  return {
+    type: FROM_PSCHANGE_TO_ADMIN,
   };
 }
 
