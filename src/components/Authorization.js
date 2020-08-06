@@ -3,6 +3,7 @@ import { reduxForm, formValueSelector, Field, change } from "redux-form";
 import { connect } from "react-redux";
 import { authorize } from "../store/actions";
 import "../static/Authorization.css";
+import getErrors from "../utils/getErrorsAuth";
 
 class Authorization extends Component {
   constructor(props) {
@@ -13,32 +14,8 @@ class Authorization extends Component {
     };
   }
 
-  getErrors = () => {
-    const errors = {
-      username: [],
-      password: [],
-    };
-
-    if (this.props.username ? this.props.username.length < 6 : false) {
-      errors.username.push("Имя пользователя не должно быть менее 6 символов");
-    }
-    if (this.props.username ? this.props.username.length > 25 : false) {
-      errors.username.push("Имя пользователя не может превышать 25 символов");
-    }
-    if (!this.props.username) {
-      errors.username.push("Поле не может быть пустым");
-    }
-    if (this.props.password ? this.props.password.length < 7 : false) {
-      errors.password.push("Пароль не может быть короче 7 символов");
-    }
-    if (!this.props.password) {
-      errors.password.push("Поле не может быть пустым");
-    }
-    return errors;
-  };
-
   handleSubmit = (ev) => {
-    const errors = this.getErrors();
+    const errors = getErrors(this.props.username, this.props.password);
     if (!errors.username.length && !errors.password.length) {
       this.setState({ errors: {} });
       this.props.authorize();

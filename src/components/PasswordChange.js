@@ -8,6 +8,7 @@ import {
   logout,
 } from "../store/actions";
 import { Link } from "react-router-dom";
+import getErrors from "../utils/getErrorsPasswordChange";
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -19,34 +20,8 @@ class PasswordChange extends Component {
     };
   }
 
-  getErrors = () => {
-    const errors = {
-      password: [],
-      passwordAgain: [],
-      same: true,
-    };
-    if (this.props.password ? this.props.password.length < 7 : false) {
-      errors.password.push("Пароль не может быть короче 7 символов");
-    }
-    if (!this.props.password) {
-      errors.password.push("Поле не может быть пустым");
-    }
-    if (
-      this.props.passwordAgain ? this.props.passwordAgain.length < 7 : false
-    ) {
-      errors.passwordAgain.push("Пароль не может быть короче 7 символов");
-    }
-    if (!this.props.passwordAgain) {
-      errors.passwordAgain.push("Поле не может быть пустым");
-    }
-    if (this.props.passwordAgain !== this.props.password) {
-      errors.same = false;
-    }
-    return errors;
-  };
-
   handleSubmit = (ev) => {
-    const errors = this.getErrors();
+    const errors = getErrors(this.props.password, this.props.passwordAgain);
     if (
       !errors.password.length &&
       !errors.passwordAgain.length &&
