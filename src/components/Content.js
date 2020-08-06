@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchData } from "../store/actions";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
-import UserAuthorizedFeatures from "./UserAuthorizedFeatures";
+import UserAuthorizedRoutes from "./PriorityUserFeatures/UserAuthorizedRoutes";
 import Authorization from "./Authorization";
 
 class Content extends Component {
@@ -16,7 +16,7 @@ class Content extends Component {
         <Route path="/" exact={true} render={() => <Redirect to="/login/" />} />
         <Route component={Authorization} exact={true} strict path="/login/" />
         {this.props.isAuthorized ? (
-          <UserAuthorizedFeatures />
+          <UserAuthorizedRoutes />
         ) : (
           <Redirect to="/login/" />
         )}

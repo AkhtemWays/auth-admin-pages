@@ -1,41 +1,11 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import UserAddition from "./UserAddition";
-import EditUser from "./EditUser";
-import Admin from "./Admin";
-import { Redirect, Route } from "react-router-dom";
-import Detail from "./Detail";
-import PasswordChange from "./PasswordChange";
 
-class UserAuthorizedFeatures extends Component {
+class Permissions extends Component {
   render() {
     return (
       <>
-        <Route component={Admin} path="/admin/" strict exact={true} />
-        <Route
-          path="/admin/edit/:userId/"
-          strict
-          exact={true}
-          component={EditUser}
-        />
-        <Route
-          component={UserAddition}
-          path="/admin/add/"
-          strict={true}
-          exact={true}
-        />
-        <Route
-          component={Detail}
-          path="/admin/detail/:userId/"
-          strict
-          exact={true}
-        />
-        <Route
-          component={PasswordChange}
-          path="/admin/passwordchange/"
-          strict
-          exact={true}
-        />
         {this.props.isAuthorized &&
           !this.props.userAdditionMode &&
           !this.props.userEditMode &&
@@ -56,6 +26,7 @@ class UserAuthorizedFeatures extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   isAuthorized: state.main.isAuthorized,
   userAdditionMode: state.main.userAdditionMode,
@@ -64,4 +35,4 @@ const mapStateToProps = (state) => ({
   passwordChangeMode: state.main.passwordChangeMode,
 });
 
-export default connect(mapStateToProps, null)(UserAuthorizedFeatures);
+export default connect(mapStateToProps, null)(Permissions);

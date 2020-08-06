@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  deleteUser,
-  addUserMode,
-  setEditMode,
-  setDetail,
-  logout,
-  setPSChangeMode,
-} from "../store/actions";
-import { Link } from "react-router-dom";
-import { Field, formValueSelector, reduxForm } from "redux-form";
 import NavBar from "./NavBar";
+import AddUserButton from "./AddUserButton";
+import SortFeature from "./SortFeature";
+import SearchFeature from "./SearchFeature";
+import TableBodyFeatures from "./TableBodyFeatures";
 
 class Admin extends Component {
   render() {
@@ -25,86 +19,18 @@ class Admin extends Component {
               <th scope="col">Фамилия</th>
               <th scope="col">Почта</th>
               <th scope="col">
-                <Link to="/admin/add/">
-                  <button
-                    className="btn btn-lg btn-success"
-                    onClick={this.props.addUserMode}
-                  >
-                    Добавить
-                  </button>
-                </Link>
+                <AddUserButton />
               </th>
               <th scope="col">
-                <label>Сортировать по: </label>
-                <Field
-                  component="select"
-                  className="custom-select ml-1"
-                  style={{ width: "200px" }}
-                  name="sortOption"
-                  value={this.props.currentSortOption}
-                >
-                  {this.props.sortOptions.map((option, index) =>
-                    option === this.props.currentSortOption ? (
-                      <option value={option} defaultValue={option} key={index}>
-                        {option}
-                      </option>
-                    ) : (
-                      <option value={option} key={index}>
-                        {option}
-                      </option>
-                    )
-                  )}
-                </Field>
+                <SortFeature />
               </th>
               <th scope="col">
-                <label>Поиск:</label>
-                <Field
-                  component="input"
-                  className="form-control"
-                  style={{ width: "200px" }}
-                  name="search"
-                  value={this.props.search}
-                />
+                <SearchFeature />
               </th>
             </tr>
           </thead>
           <tbody>
-            {this.props.currentUsers.map((user) => (
-              <tr>
-                <th scope="row">{user.id}</th>
-                <td>{user.name.split(" ")[0]}</td>
-                <td>{user.name.split(" ")[1]}</td>
-                <td>{user.email}</td>
-                <td>
-                  <button
-                    className="btn btn-danger btn-lg"
-                    onClick={() => this.props.deleteUser(user.id)}
-                  >
-                    Удалить{" "}
-                  </button>
-                </td>
-                <td>
-                  <Link to="/admin/edit/:userId/">
-                    <button
-                      className="btn btn-secondary btn-lg"
-                      onClick={() => this.props.setEditMode(user.id)}
-                    >
-                      Редактировать
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <Link to="/admin/detail/:userId/">
-                    <button
-                      className="btn btn-info btn-lg"
-                      onClick={() => this.props.setDetail(user.id)}
-                    >
-                      Подробнее
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            <TableBodyFeatures />
           </tbody>
         </table>
       </div>
@@ -112,30 +38,4 @@ class Admin extends Component {
   }
 }
 
-const ReduxFormAdmin = reduxForm({
-  form: "adminFeatures",
-})(Admin);
-
-const mapStateToProps = (state) => {
-  const selector = formValueSelector("adminFeatures");
-  const sortOption = selector(state, "sortOption");
-  const search = selector(state, "search");
-  return {
-    currentUsers: state.main.currentUsers,
-    currentSortOption: state.main.currentSortOption || sortOption,
-    sortOptions: state.main.sortOptions,
-    search: state.main.search || search,
-    currentUser: state.main.currentUser,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  deleteUser: (id) => dispatch(deleteUser(id)),
-  addUserMode: () => dispatch(addUserMode()),
-  setEditMode: (id) => dispatch(setEditMode(id)),
-  setDetail: (id) => dispatch(setDetail(id)),
-  logout: () => dispatch(logout()),
-  setPSChangeMode: () => dispatch(setPSChangeMode()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxFormAdmin);
+export default connect(null, null)(Admin);
