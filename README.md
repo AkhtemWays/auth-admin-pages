@@ -2,7 +2,7 @@
 
 An application of admin page with features such as adding, dynamically searching, updating deleting, sorting and changing password of users. There are a few accounts also available built-in in the app for testing purposes, descriptions of which can be found in src/components/usersConfig directory as well as their privileges, the main thing to know though, that for now it's assumed to have the only superuser which has all the privileges, and that is not supposed to be added using GUI. You can see all the features by getting through login page by passing "superuser" for username field and "superuser" for password field.
 
-For russian representatives, russian description is available in the directory given above because of me being partially russian :)
+For russian representatives, russian description is available in the directory given above because of me being partially being russian :)
 
 Feel free to test it out and contact me in the case of bugs.
 
