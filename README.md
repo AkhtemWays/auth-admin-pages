@@ -6,6 +6,10 @@ For russian representatives, russian description is available in the directory g
 
 Feel free to test it out and contact me in the case of bugs.
 
+## Demo
+
+![ezgif com-optimize](https://user-images.githubusercontent.com/58889535/89646571-b16b2480-d8c4-11ea-84e6-31c0eb0f5d52.gif)
+
 ## Available Scripts
 
 In the project directory, you can run:
