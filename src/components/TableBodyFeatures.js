@@ -8,8 +8,8 @@ class TableBodyFeatures extends Component {
   render() {
     return (
       <>
-        {this.props.currentUsers.map((user) => (
-          <tr>
+        {this.props.currentUsers.map((user, index) => (
+          <tr key={index}>
             <th scope="row">{user.id}</th>
             <td>{user.name.split(" ")[0]}</td>
             <td>{user.name.split(" ")[1]}</td>

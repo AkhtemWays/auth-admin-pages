@@ -58,8 +58,8 @@ class PasswordChange extends Component {
                 required
               />
               {this.state.errors.password &&
-                this.state.errors.password.map((error) => (
-                  <div className="text-sm-left ml-2">
+                this.state.errors.password.map((error, index) => (
+                  <div className="text-sm-left ml-2" key={index}>
                     <p className="small text-danger">{error}</p>
                   </div>
                 ))}
@@ -79,8 +79,8 @@ class PasswordChange extends Component {
                 required
               />
               {this.state.errors.passwordAgain &&
-                this.state.errors.passwordAgain.map((error) => (
-                  <div className="text-sm-left ml-2">
+                this.state.errors.passwordAgain.map((error, index) => (
+                  <div className="text-sm-left ml-2" key={index}>
                     <p className="small text-danger">{error}</p>
                   </div>
                 ))}

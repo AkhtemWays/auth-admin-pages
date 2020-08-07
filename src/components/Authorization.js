@@ -45,8 +45,8 @@ class Authorization extends Component {
             required
           />
           {this.state.errors.username &&
-            this.state.errors.username.map((error) => (
-              <div className="text-sm-left ml-2">
+            this.state.errors.username.map((error, index) => (
+              <div className="text-sm-left ml-2" key={index}>
                 <p className="small text-danger">{error}</p>
               </div>
             ))}
@@ -66,15 +66,15 @@ class Authorization extends Component {
             required
           />
           {this.state.errors.password &&
-            this.state.errors.password.map((error) => (
-              <div className="text-sm-left ml-2">
+            this.state.errors.password.map((error, index) => (
+              <div className="text-sm-left ml-2" key={index}>
                 <p className="small text-danger">{error}</p>
               </div>
             ))}
         </div>
         <button
           onClick={this.handleSubmit}
-          className="btn btn-primary btn-small mt-4"
+          className="btn btn-light btn-lg mt-4"
         >
           Войти
         </button>

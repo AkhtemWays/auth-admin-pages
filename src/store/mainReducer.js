@@ -290,7 +290,7 @@ export default function (state = initialData, action) {
                 return state;
             }
           }
-
+          break;
         case "userAddition":
           switch (action.meta.field) {
             case "username":
@@ -405,7 +405,7 @@ export default function (state = initialData, action) {
         default:
           return state;
       }
-
+      break;
     case AUTHORIZE:
       for (let user of state.users) {
         if (
@@ -494,7 +494,7 @@ export default function (state = initialData, action) {
       };
 
     case DELETE_USER:
-      if (action.payload == 0) {
+      if (action.payload === 0) {
         alert("Это действие невозможно!");
         return {
           ...state,
@@ -638,7 +638,7 @@ export default function (state = initialData, action) {
       };
     case SET_DETAIL:
       const chosenUser = state.currentUsers.find(
-        (user) => user.id == action.payload
+        (user) => user.id === action.payload
       );
       return {
         ...state,

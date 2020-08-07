@@ -87,8 +87,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.username &&
-              this.state.errors.username.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.username.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -107,8 +107,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.password &&
-              this.state.errors.password.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.password.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -127,8 +127,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.firstName &&
-              this.state.errors.firstName.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.firstName.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -147,8 +147,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.lastName &&
-              this.state.errors.lastName.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.lastName.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -168,8 +168,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.email &&
-              this.state.errors.email.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.email.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -189,8 +189,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.city &&
-              this.state.errors.city.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.city.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -210,8 +210,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.street &&
-              this.state.errors.street.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.street.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -231,8 +231,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.zipcode &&
-              this.state.errors.zipcode.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.zipcode.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
@@ -252,8 +252,8 @@ class UserAddition extends Component {
               required
             />
             {this.state.errors.phone &&
-              this.state.errors.phone.map((error) => (
-                <div className="text-sm-left ml-2">
+              this.state.errors.phone.map((error, index) => (
+                <div className="text-sm-left ml-2" key={index}>
                   <p className="small text-danger">{error}</p>
                 </div>
               ))}
