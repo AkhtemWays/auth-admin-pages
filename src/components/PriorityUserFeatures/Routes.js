@@ -11,24 +11,14 @@ export default class Routes extends Component {
     return (
       <>
         <Route component={Admin} path="/admin/" strict exact={true} />
-        <Route
-          path="/admin/edit/:userId/"
-          strict
-          exact={true}
-          component={EditUser}
-        />
+        <Route path="/admin/edit/" strict exact={true} component={EditUser} />
         <Route
           component={UserAddition}
           path="/admin/add/"
           strict={true}
           exact={true}
         />
-        <Route
-          component={Detail}
-          path="/admin/detail/:userId/"
-          strict
-          exact={true}
-        />
+        <Route component={Detail} path="/admin/detail/" strict exact={true} />
         <Route
           component={PasswordChange}
           path="/admin/passwordchange/"

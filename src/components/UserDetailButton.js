@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 class UserDetailButton extends Component {
   render() {
     return (
-      <Link to="/admin/detail/:userId/">
+      <Link to="/admin/detail/">
         <button
           className="btn btn-info btn-lg"
           onClick={() => this.props.setDetail(this.props.user.id)}

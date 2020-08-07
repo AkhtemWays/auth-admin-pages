@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 class UserEditButton extends Component {
   render() {
     return (
-      <Link to="/admin/edit/:userId/">
+      <Link to="/admin/edit/">
         <button
           className="btn btn-secondary btn-lg"
           onClick={() => this.props.setEditMode(this.props.user.id)}

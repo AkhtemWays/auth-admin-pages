@@ -14,13 +14,13 @@ class Permissions extends Component {
           this.props.userAdditionMode &&
           this.props.isSuper && <Redirect to="/admin/add/" strict exact />}
         {this.props.userEditMode && this.props.isSuper && (
-          <Redirect to="/admin/edit/:userId/" strict exact />
+          <Redirect to="/admin/edit/" strict exact />
         )}
         {this.props.userEditMode && this.props.isManager && (
-          <Redirect to="/admin/edit/:userId/" strict exact />
+          <Redirect to="/admin/edit/" strict exact />
         )}
         {this.props.userDetailMode && this.props.isAuthorized && (
-          <Redirect to="/admin/detail/:userId/" strict exact />
+          <Redirect to="/admin/detail/" strict exact />
         )}
         {this.props.passwordChangeMode && this.props.isAuthorized && (
           <Redirect to="/admin/passwordchange/" strict exact />
