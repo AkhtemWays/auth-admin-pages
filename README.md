@@ -12,7 +12,7 @@ Feel free to test it out and contact me in the case of bugs.
 
 ## Contact me
 
-![vk-social-network-logo](https://user-images.githubusercontent.com/58889535/89697793-74d01500-d926-11ea-9720-d7473e848de8.png)
+[![vk-social-network-logo](https://user-images.githubusercontent.com/58889535/89697793-74d01500-d926-11ea-9720-d7473e848de8.png)][1]
 
 ## Available Scripts
 
@@ -42,4 +42,4 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
-[2]: https://vk.com/ahty2
+[1]: https://vk.com/ahty2
