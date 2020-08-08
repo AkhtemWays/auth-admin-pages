@@ -13,7 +13,7 @@ Feel free to test it out and contact me in the case of bugs.
 ## Contact me
 
   [![vk-circled](https://user-images.githubusercontent.com/58889535/89698231-c5487200-d928-11ea-9d07-9944325a9a87.png)][1]
-  [![github-icon](https://user-images.githubusercontent.com/58889535/89698577-acd95700-d92a-11ea-8248-279cdb4be95d.png)][2]
+  [![github](https://user-images.githubusercontent.com/58889535/89699009-fc208700-d92c-11ea-8343-1770837898cd.png)][2]
 
 
 ## Available Scripts
