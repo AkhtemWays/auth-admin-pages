@@ -43,6 +43,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
-[1]: https://vk.com/ahty2
-[2]: https:/github.com/AkhtemWays
+<ul>
+<li>[1]: https://vk.com/ahty2</li>
+<li>[2]: https:/github.com/AkhtemWays</li>
+<ul>
