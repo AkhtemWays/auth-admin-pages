@@ -13,7 +13,8 @@ Feel free to test it out and contact me in the case of bugs.
 ## Contact me
 
   [![vk-circled](https://user-images.githubusercontent.com/58889535/89698231-c5487200-d928-11ea-9d07-9944325a9a87.png)][1]
-  [![github-icon](https://user-images.githubusercontent.com/58889535/89699097-76510b80-d92d-11ea-8fd9-eb66d67bd025.png)][2]
+  [![github-icon](https://user-images.githubusercontent.com/58889535/89699288-9b924980-d92e-11ea-8e8c-aaab37d66bd9.png)][2]
+  [![facebook-icon](https://user-images.githubusercontent.com/58889535/89699367-10fe1a00-d92f-11ea-8f39-23be6b83cc24.png)][3]
 
 
 ## Available Scripts
@@ -45,4 +46,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 [1]: https://vk.com/ahty2
 [2]: https://github.com/AkhtemWays
+[3]: https://www.facebook.com/ahtem.salihov
 
