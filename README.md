@@ -12,8 +12,8 @@ Feel free to test it out and contact me in the case of bugs.
 
 ## Contact me
 <ul>
-  <li>[![vk-circled](https://user-images.githubusercontent.com/58889535/89698231-c5487200-d928-11ea-9d07-9944325a9a87.png)][1]</li>
-  <li>[![github-icon](https://user-images.githubusercontent.com/58889535/89698577-acd95700-d92a-11ea-8248-279cdb4be95d.png)][2]</li>
+  [<li>![vk-circled](https://user-images.githubusercontent.com/58889535/89698231-c5487200-d928-11ea-9d07-9944325a9a87.png)</li>][1]
+  [<li>[![github-icon](https://user-images.githubusercontent.com/58889535/89698577-acd95700-d92a-11ea-8248-279cdb4be95d.png)</li>][2]
 </ul>
 
 ## Available Scripts
@@ -43,7 +43,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-<ul>
-<li>[1]: https://vk.com/ahty2</li>
-<li>[2]: https:/github.com/AkhtemWays</li>
-<ul>
+[1]: https://vk.com/ahty2
+[2]: https:/github.com/AkhtemWays
+
