@@ -12,7 +12,7 @@ Feel free to test it out and contact me in the case of bugs.
 
 ## Contact me
 
-[![vk-social-network-logo](https://user-images.githubusercontent.com/58889535/89697793-74d01500-d926-11ea-9720-d7473e848de8.png)][1]
+[![vk-circled](https://user-images.githubusercontent.com/58889535/89698040-c6c56a80-d927-11ea-9e6e-4837c7d1b80c.png)][1]
 
 ## Available Scripts
 
