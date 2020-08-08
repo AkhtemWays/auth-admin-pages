@@ -10,6 +10,10 @@ Feel free to test it out and contact me in the case of bugs.
 
 ![ezgif com-optimize](https://user-images.githubusercontent.com/58889535/89646571-b16b2480-d8c4-11ea-84e6-31c0eb0f5d52.gif)
 
+## Contact me
+
+![vk-social-network-logo](https://user-images.githubusercontent.com/58889535/89697793-74d01500-d926-11ea-9720-d7473e848de8.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -36,3 +40,6 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+
+[2]: https://vk.com/ahty2
